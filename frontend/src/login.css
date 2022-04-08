@@ -1,0 +1,10 @@
+.login > a {
+  color: white;
+  text-decoration: none;
+  padding: 20px;
+  border-radius: 99px;
+  font-weight: 800;
+}
+.spotiy-button {
+  background-color: green;
+}
