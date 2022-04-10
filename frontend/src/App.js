@@ -8,7 +8,7 @@ import SpotifyWebApi from "spotify-web-api-js";
 const spotify = new SpotifyWebApi();
 
 function App() {
-  const [_token, setToken] = useState(null);
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
     //code...
@@ -18,15 +18,21 @@ function App() {
 
     if (_token) {
       setToken(_token);
+
+      spotify.setAccessToken(_token);
+      //grabbing the user
+      spotify.getMe().then((user) => {
+        console.log("USER", user);
+      });
     }
 
-    console.log("i have a token", _token);
+    console.log("i have a token", token);
   }, []);
   return (
     <div className="App">
       <header className="App-header">
         <code>Spotify uncovered</code>
-        {_token ? <Dashboard /> : <Login />}
+        {token ? <Dashboard /> : <Login />}
       </header>
     </div>
   );
