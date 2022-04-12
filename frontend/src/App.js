@@ -24,18 +24,24 @@ function App() {
       spotify.setAccessToken(_token);
       //grabbing the user
       spotify.getMe().then((user) => {
-        console.log("USER", user);
+        //console.log("USER", user);
         setUser(user);
       });
     }
 
     console.log("i have a token", token);
   }, []);
+
+  let props = {
+    spotify: spotify,
+    token: token,
+  };
+
   return (
     <div className="App">
       <header className="App-header">
         <code>Spotify uncovered</code>
-        {token ? <Dashboard user={user} /> : <Login />}
+        {token ? <Dashboard props={props} /> : <Login />}
       </header>
     </div>
   );
