@@ -24,7 +24,7 @@ export const getTokenFromResponse = () => {
       return initial;
     }, {});
 };
-export const deployedLoginUrl = `${authEndpoint}?client_id=${clientId_deployed}&redirect_uri=${redirectUri_deployed}&scope=${scopes.join(
+export const deployedLoginUrl = `${authEndpoint}?client_id=${clientId_test}&redirect_uri=${redirectUri_deployed}&scope=${scopes.join(
   "%20"
 )}&response_type=token&show_dialog=true`;
 
