@@ -17,6 +17,9 @@ function Login() {
           <a href={deployedLoginUrl}>Login for deployment</a>
         </button>
       )}
+      <button className="spotify-button">
+        <a href={loginUrl}>Login for testing</a>
+      </button>
     </div>
   );
 }

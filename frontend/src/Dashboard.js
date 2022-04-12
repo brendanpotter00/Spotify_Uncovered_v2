@@ -1,10 +1,77 @@
-import React from "react";
+import react, { useState } from "react";
+import axios from "axios";
+import { UserTracks } from "react-spotify-api";
 import "./dashboard.css";
 
-function Dashboard({ user }) {
-  const test = "hello";
-  console.log("USER IN DASH", user);
-  return <div>I am the dashboard and the user is logged in</div>;
+function Dashboard({ props }) {
+  //console.log("USER IN DASH", spotify);
+  const topTrackEndpoint = "https://api.spotify.com/v1/me/top/tracks";
+  const spotify = props.spotify;
+  const token = props.token;
+  const [data, setData] = useState([]);
+  //separation
+  const [topTracks, setTopTracks] = useState([]);
+  const [topTracksNames, setTopTracksNames] = useState([]);
+  //const [topArtists, setTopArtists] = useState([]);
+
+  //doesnt do much but should be what 2 is
+  //1
+  spotify.getMyTopTracks().then(
+    (artists) => {
+      setTopTracks((prevEntries) => {
+        return [artists.items, ...prevEntries];
+      });
+    },
+    (err) => {
+      console.log("Error:", err);
+    },
+    (err) => {
+      console.log("Error:", err);
+    }
+  );
+
+  //gets the aritsts in the console but needs to set varible to display useState
+  //2
+  let topArtists;
+
+  spotify.getMyTopArtists().then(
+    (artists) => {
+      topArtists = artists.items;
+      console.log(topArtists);
+    },
+    (err) => {
+      console.log("Error:", err);
+    }
+  );
+
+  //3
+  //trying to use axios to get it but has to use server to server communication not frontend
+  const handleTopTracks = () => {
+    axios
+      .get(topTrackEndpoint, {
+        headers: {
+          Authorization: "Bearer" + token,
+        },
+      })
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+  //html code below to display
+  return (
+    <div>
+      I am the dashboard and the user is logged in
+      <button onClick={handleTopTracks}> display top tracks</button>
+      {data?.items ? (
+        data.item.map((item) => <p>{item.name}</p>)
+      ) : (
+        <p>no top tracks</p>
+      )}
+    </div>
+  );
 }
 
 export default Dashboard;
