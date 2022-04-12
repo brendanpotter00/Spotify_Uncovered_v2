@@ -3,7 +3,7 @@ export const authEndpoint = "https://accounts.spotify.com/authorize";
 const clientId_test = "c4cbffae207c414eb633445b69de2543";
 const clientId_deployed = "9d0dc9720d7a4dca8f0eeb7a146bb258";
 const redirectUri_test = "http://localhost:3000/";
-const redirectUri_deplpyed =
+const redirectUri_deployed =
   "https://brendanpotter00.github.io/Spotify_Uncovered_v2/";
 const scopes = [
   "user-read-currently-playing",
@@ -24,7 +24,7 @@ export const getTokenFromResponse = () => {
       return initial;
     }, {});
 };
-export const deployedLoginUrl = `${authEndpoint}?client_id=${clientId_deployed}&redirect_uri=${redirectUri_deplpyed}&scope=${scopes.join(
+export const deployedLoginUrl = `${authEndpoint}?client_id=${clientId_deployed}&redirect_uri=${redirectUri_deployed}&scope=${scopes.join(
   "%20"
 )}&response_type=token&show_dialog=true`;
 
