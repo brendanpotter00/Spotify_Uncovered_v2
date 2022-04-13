@@ -3,6 +3,8 @@ import axios from "axios";
 import { UserTracks } from "react-spotify-api";
 import "./dashboard.css";
 import Card from "./Card.js";
+import StatGauge from "./StatGauge";
+import CardList from "./CardList";
 
 function Dashboard({ props }) {
   //console.log("USER IN DASH", spotify);
@@ -63,7 +65,7 @@ function Dashboard({ props }) {
   };
   //html code below to display
   return (
-    <div>
+    <div className="dashboard_container">
       I am the dashboard and the user is logged in
       <button onClick={handleTopTracks}> display top tracks</button>
       {data?.items ? (
@@ -71,7 +73,8 @@ function Dashboard({ props }) {
       ) : (
         <p>no top tracks</p>
       )}
-      <Card />
+      <StatGauge />
+      <CardList />
     </div>
   );
 }

@@ -1,0 +1,9 @@
+.dashboard_container {
+    outline: 1px solid red;
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(60rem, 90rem));
+    grid-gap: 2rem;
+    justify-content:center;
+    margin: 2rem;
+    padding: 2rem ;
+}
