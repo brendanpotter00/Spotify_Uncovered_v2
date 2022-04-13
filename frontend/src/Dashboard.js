@@ -71,7 +71,7 @@ function Dashboard({ props }) {
       {data?.items ? (
         data.item.map((item) => <p>{item.name}</p>)
       ) : (
-        <p>no top tracks</p>
+        <p>dashbaord: red / card and cardlist: green</p>
       )}
       <StatGauge />
       <CardList />
