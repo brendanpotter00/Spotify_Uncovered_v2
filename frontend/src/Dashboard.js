@@ -3,6 +3,8 @@ import axios from "axios";
 import { UserTracks } from "react-spotify-api";
 import "./dashboard.css";
 import Card from "./Card.js";
+import StatGauge from "./StatGauge";
+import CardList from "./CardList";
 
 function Dashboard({ props }) {
   //console.log("USER IN DASH", spotify);
@@ -18,9 +20,9 @@ function Dashboard({ props }) {
   //doesnt do much but should be what 2 is
   //1
   spotify.getMyTopTracks().then(
-    (artists) => {
+    (tracks) => {
       setTopTracks((prevEntries) => {
-        return [artists.items, ...prevEntries];
+        return [tracks.items, ...prevEntries];
       });
     },
     (err) => {
@@ -39,6 +41,7 @@ function Dashboard({ props }) {
     (artists) => {
       topArtists = artists.items;
       console.log(topArtists);
+      console.log("g");
     },
     (err) => {
       console.log("Error:", err);
@@ -63,15 +66,16 @@ function Dashboard({ props }) {
   };
   //html code below to display
   return (
-    <div>
+    <div className="dashboard_container">
       I am the dashboard and the user is logged in
       <button onClick={handleTopTracks}> display top tracks</button>
-      {data?.items ? (
+      {data.items ? (
         data.item.map((item) => <p>{item.name}</p>)
       ) : (
-        <p>no top tracks</p>
+        <p>dashbaord: red / card and cardlist: green</p>
       )}
-      <Card />
+      <StatGauge />
+      <CardList />
     </div>
   );
 }
