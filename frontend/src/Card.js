@@ -17,6 +17,7 @@ function Card({ props }) {
             <li className="stat">energy 5</li>
             <li className="stat">energy 5</li>
           </ul>
+          <p className="rank"> 1 </p>
         </div>
       </div>
     </div>

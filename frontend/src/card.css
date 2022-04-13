@@ -1,34 +1,27 @@
+.card {
+  overflow: hidden;
+  box-shadow: 0px 2px 20px black;
+  border-radius: 3rem;
+  display: flex;
+  flex-direction: column;
 
- 
-  .card {
-    overflow: hidden;
-    box-shadow: 0px 2px 20px black;
-    border-radius: 3rem;
-    display: flex;
-    flex-direction: column;
-    
+  transition: transform 200ms ease-in;
+}
 
-    transition: transform 200ms ease-in;
-  }
-  
-    .image {
-      height: 15vh;
-      width: 100%;
-      object-fit: cover;
-      border-radius: 10rem;
-    }
-  
-    .title {
-      padding: 1rem;
-    }
-  
-    .description {
-      padding:  1rem;
-    }
-  
-   
-  
-  
-  
-   
-  
+.image {
+  height: 15vh;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10rem;
+}
+
+.title {
+  padding: 1rem;
+}
+
+.description {
+  padding: 1rem;
+}
+.rank {
+  padding: 0.5rem;
+}
