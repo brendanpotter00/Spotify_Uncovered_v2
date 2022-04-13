@@ -17,13 +17,32 @@ function Dashboard({ props }) {
   //const [topTracks, setTopTracks] = useState([]);
   const [topTracksNames, setTopTracksNames] = useState([]);
   const [tracks, setTracks] = useState([]);
+  const [audioFeatures, setAudioFeatures] = useState([]);
+  const [trackFeatures, setTrackFeatures] = useState([]);
 
-  let globalTracks = [];
+  let features = {
+    name: "",
+    id: "",
+    album: "",
+    danceability: "",
+    artist: "",
+    energy: "",
+  };
+
+  let listProps = [];
+
   useEffect(() => {
     spotify.getMyTopTracks().then(
-      (artists) => {
-        globalTracks = artists.items;
-        setTracks(globalTracks);
+      (tracks) => {
+        setTracks(tracks.items);
+        // for (let track of tracks) {
+        //   let temp = {
+        //     name: track.name,
+        //     id: track.id,
+        //     artist: track.artist,
+        //   };
+        //   listProps.push(temp);
+        // }
       },
       (err) => {
         console.log("Error:", err);
@@ -31,15 +50,13 @@ function Dashboard({ props }) {
     );
   }, []);
 
-  console.log("this");
-  console.log(tracks);
-
   const itemRows = [];
   for (let item of tracks) {
     const row = (
       <tr>
         <td>{item.name}</td>
         <td>{item.popularity}</td>
+        <td>{item.artists[0].name}</td>
       </tr>
     );
     itemRows.push(row);
