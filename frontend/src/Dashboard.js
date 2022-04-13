@@ -2,6 +2,7 @@ import react, { useState } from "react";
 import axios from "axios";
 import { UserTracks } from "react-spotify-api";
 import "./dashboard.css";
+import Card from "./Card.js";
 
 function Dashboard({ props }) {
   //console.log("USER IN DASH", spotify);
@@ -70,6 +71,7 @@ function Dashboard({ props }) {
       ) : (
         <p>no top tracks</p>
       )}
+      <Card />
     </div>
   );
 }
