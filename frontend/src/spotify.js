@@ -1,3 +1,4 @@
+import SpotifyWebApi from "spotify-web-api-js";
 export const authEndpoint = "https://accounts.spotify.com/authorize";
 // Replace with your app's client ID, redirect URI and desired scopes
 const clientId_test = "c4cbffae207c414eb633445b69de2543";
