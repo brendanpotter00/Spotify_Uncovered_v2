@@ -4,6 +4,7 @@
   border-radius: 3rem;
   display: flex;
   flex-direction: column;
+  background-color: rgb(106, 106, 106);
 
   transition: transform 200ms ease-in;
 }
