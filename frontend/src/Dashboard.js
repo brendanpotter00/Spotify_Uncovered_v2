@@ -20,9 +20,9 @@ function Dashboard({ props }) {
   //doesnt do much but should be what 2 is
   //1
   spotify.getMyTopTracks().then(
-    (artists) => {
+    (tracks) => {
       setTopTracks((prevEntries) => {
-        return [artists.items, ...prevEntries];
+        return [tracks.items, ...prevEntries];
       });
     },
     (err) => {
@@ -41,6 +41,7 @@ function Dashboard({ props }) {
     (artists) => {
       topArtists = artists.items;
       console.log(topArtists);
+      console.log("g");
     },
     (err) => {
       console.log("Error:", err);
@@ -68,7 +69,7 @@ function Dashboard({ props }) {
     <div className="dashboard_container">
       I am the dashboard and the user is logged in
       <button onClick={handleTopTracks}> display top tracks</button>
-      {data?.items ? (
+      {data.items ? (
         data.item.map((item) => <p>{item.name}</p>)
       ) : (
         <p>dashbaord: red / card and cardlist: green</p>
