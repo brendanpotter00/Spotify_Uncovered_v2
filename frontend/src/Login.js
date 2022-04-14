@@ -7,16 +7,21 @@ function Login() {
   console.log(window.location.href);
   return (
     <div className="login">
-      I am the login button
-      {window.location.href == "http://localhost:3000/Spotify_Uncovered_v2" ? (
+      <img src="https://getheavy.com/wp-content/uploads/2019/12/spotify2019-830x350.jpg" alt=""/>
+
+      {/*{window.location.href == "http://localhost:3000/Spotify_Uncovered_v2" ? (
         <button className="spotify-button">
           <a href={loginUrl}>Login for testing</a>
         </button>
       ) : (
-        <button className="spotify-button">
-          <a href={deployedLoginUrl}>Login for deployment</a>
-        </button>
+  
+        <a href={deployedLoginUrl}>login with spotify</a>
+  
       )}
+      */}
+
+      <a href={deployedLoginUrl}>login with spotify</a>
+
       <button className="spotify-button">
         <a href={loginUrl}>Login for testing</a>
       </button>
