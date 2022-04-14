@@ -33,6 +33,7 @@ function Dashboard({ props }) {
     );
   }, []);
 
+  //create an item then map it to a card in typescript
   const itemRows = [];
 
   for (let item of tracks) {
