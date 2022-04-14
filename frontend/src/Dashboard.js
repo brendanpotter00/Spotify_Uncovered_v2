@@ -3,30 +3,38 @@ import axios from "axios";
 import { TrackAnalysis, UserTracks } from "react-spotify-api";
 import "./dashboard.css";
 import Card from "./Card.js";
+import BasicTable from "./BasicTable.js";
 import StatGauge from "./StatGauge";
 import CardList from "./CardList";
 
 function Dashboard({ props }) {
   const spotify = props.spotify;
   const [tracks, setTracks] = useState([]);
-  const [fts, setFts] = useState([]); 
+  const [fts, setFts] = useState([]);
+  const [exp, setExp] = useState([]);
 
   useEffect(() => {
     spotify.getMyTopTracks().then(
       (tracks) => {
         let trackFts = tracks.items.map((track) => {
-          spotify.getAudioFeaturesForTrack(track.id).then(results => {
+          console.log(track.album.images[0].url);
+          spotify.getAudioFeaturesForTrack(track.id).then((results) => {
             let temp = {
-              id: track.id, 
-              name: track.name, 
-              artists: track.artists[0].name, 
-              energy: results.energy 
-            }
-            setTracks(tracks => [...tracks, temp])
-          })
+              id: track.id,
+              name: track.name,
+              artists: track.artists[0].name,
+              energy: results.energy,
+              loudness: results.loudness,
+              acousticness: results.acousticness,
+              img: track.album.images[0].url,
+            };
+
+            setTracks((tracks) => [...tracks, temp]);
+            //console.log(tracks);
+          });
         });
-      }
-      ,
+      },
+
       (err) => {
         console.log("Error:", err);
       }
@@ -35,6 +43,7 @@ function Dashboard({ props }) {
 
   //create an item then map it to a card in typescript
   const itemRows = [];
+  const global = [];
 
   for (let item of tracks) {
     const row = (
@@ -43,21 +52,33 @@ function Dashboard({ props }) {
         <td>{item.pop}</td>
         <td>{item.artists}</td>
         <td>{item.energy}</td>
+        <td>{item.loudness}</td>
+        <td>{item.acousticness}</td>
       </tr>
     );
+    let temp = {
+      name: item.name,
+      artist: item.artists,
+      energy: item.energy,
+      loudness: item.loudness,
+      acousticness: item.acousticness,
+      img: item.img,
+    };
+    global.push(temp);
+
     itemRows.push(row);
   }
 
-  //html code below to display
   return (
     <div className="dashboard_container">
       I am the dashboard and the user is logged in
       <p>dashbaord: red / card and cardlist: green</p>
-      <div className="work">
+      {/* <div className="work">
         <table>
           <tbody>{itemRows}</tbody>
         </table>
-      </div>
+      </div> */}
+      <BasicTable props={global} />
       <StatGauge />
       <CardList />
     </div>

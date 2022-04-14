@@ -29,7 +29,7 @@ function App() {
       });
     }
 
-    console.log("i have a token", token);
+    //console.log("i have a token", token);
   }, []);
 
   let props = {
