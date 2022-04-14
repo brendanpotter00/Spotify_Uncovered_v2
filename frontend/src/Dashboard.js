@@ -1,49 +1,32 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { UserTracks } from "react-spotify-api";
+import { TrackAnalysis, UserTracks } from "react-spotify-api";
 import "./dashboard.css";
 import Card from "./Card.js";
 import StatGauge from "./StatGauge";
 import CardList from "./CardList";
-import { getTopTracks } from "./spotify.js";
 
 function Dashboard({ props }) {
-  //console.log("USER IN DASH", spotify);
-  const topTrackEndpoint = "https://api.spotify.com/v1/me/top/tracks";
   const spotify = props.spotify;
-  const token = props.token;
-  const [data, setData] = useState([]);
-  //separation
-  //const [topTracks, setTopTracks] = useState([]);
-  const [topTracksNames, setTopTracksNames] = useState([]);
   const [tracks, setTracks] = useState([]);
-  const [audioFeatures, setAudioFeatures] = useState([]);
-  const [trackFeatures, setTrackFeatures] = useState([]);
-
-  let features = {
-    name: "",
-    id: "",
-    album: "",
-    danceability: "",
-    artist: "",
-    energy: "",
-  };
-
-  let listProps = [];
+  const [fts, setFts] = useState([]); 
 
   useEffect(() => {
     spotify.getMyTopTracks().then(
       (tracks) => {
-        setTracks(tracks.items);
-        // for (let track of tracks) {
-        //   let temp = {
-        //     name: track.name,
-        //     id: track.id,
-        //     artist: track.artist,
-        //   };
-        //   listProps.push(temp);
-        // }
-      },
+        let trackFts = tracks.items.map((track) => {
+          spotify.getAudioFeaturesForTrack(track.id).then(results => {
+            let temp = {
+              id: track.id, 
+              name: track.name, 
+              artists: track.artists[0].name, 
+              energy: results.energy 
+            }
+            setTracks(tracks => [...tracks, temp])
+          })
+        });
+      }
+      ,
       (err) => {
         console.log("Error:", err);
       }
@@ -51,12 +34,14 @@ function Dashboard({ props }) {
   }, []);
 
   const itemRows = [];
+
   for (let item of tracks) {
     const row = (
       <tr>
         <td>{item.name}</td>
-        <td>{item.popularity}</td>
-        <td>{item.artists[0].name}</td>
+        <td>{item.pop}</td>
+        <td>{item.artists}</td>
+        <td>{item.energy}</td>
       </tr>
     );
     itemRows.push(row);
