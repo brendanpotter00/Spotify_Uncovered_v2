@@ -37,7 +37,12 @@ export default function BasicTable({ props }) {
               <TableCell align="right">{prop.loudness}</TableCell>
               <TableCell align="right">{prop.acousticness}</TableCell>
               <TableCell align="right">
-                <img width="100" height="100" src={prop.img} />
+                <img
+                  width="100"
+                  height="100"
+                  clip-path="circle(50.0% at 50% 50%)"
+                  src={prop.img}
+                />
               </TableCell>
             </TableRow>
           ))}
