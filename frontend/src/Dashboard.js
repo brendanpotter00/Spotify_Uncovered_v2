@@ -1,45 +1,47 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { UserTracks } from "react-spotify-api";
+import { TrackAnalysis, UserTracks } from "react-spotify-api";
 import "./dashboard.css";
 import Card from "./Card.js";
 import StatGauge from "./StatGauge";
 import CardList from "./CardList";
-import { getTopTracks } from "./spotify.js";
 
 function Dashboard({ props }) {
-  //console.log("USER IN DASH", spotify);
-  const topTrackEndpoint = "https://api.spotify.com/v1/me/top/tracks";
   const spotify = props.spotify;
-  const token = props.token;
-  const [data, setData] = useState([]);
-  //separation
-  //const [topTracks, setTopTracks] = useState([]);
-  const [topTracksNames, setTopTracksNames] = useState([]);
   const [tracks, setTracks] = useState([]);
+  const [fts, setFts] = useState([]); 
 
-  let globalTracks = [];
   useEffect(() => {
     spotify.getMyTopTracks().then(
-      (artists) => {
-        globalTracks = artists.items;
-        setTracks(globalTracks);
-      },
+      (tracks) => {
+        let trackFts = tracks.items.map((track) => {
+          spotify.getAudioFeaturesForTrack(track.id).then(results => {
+            let temp = {
+              id: track.id, 
+              name: track.name, 
+              artists: track.artists[0].name, 
+              energy: results.energy 
+            }
+            setTracks(tracks => [...tracks, temp])
+          })
+        });
+      }
+      ,
       (err) => {
         console.log("Error:", err);
       }
     );
   }, []);
 
-  console.log("this");
-  console.log(tracks);
-
   const itemRows = [];
+
   for (let item of tracks) {
     const row = (
       <tr>
         <td>{item.name}</td>
-        <td>{item.popularity}</td>
+        <td>{item.pop}</td>
+        <td>{item.artists}</td>
+        <td>{item.energy}</td>
       </tr>
     );
     itemRows.push(row);
