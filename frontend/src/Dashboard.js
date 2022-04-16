@@ -6,6 +6,16 @@ import Card from "./Card.js";
 import BasicTable from "./BasicTable.js";
 import StatGauge from "./StatGauge";
 import CardList from "./CardList";
+//=======================================================================
+import { styled } from "@mui/material/styles";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+//=======================================================================
 
 function Dashboard({ props }) {
   const spotify = props.spotify;
@@ -42,7 +52,7 @@ function Dashboard({ props }) {
   }, []);
 
   //create an item then map it to a card in typescript
-  const itemRows = [];
+  // const itemRows = [];
   const global = [];
 
   for (let item of tracks) {
@@ -66,7 +76,7 @@ function Dashboard({ props }) {
     };
     global.push(temp);
 
-    itemRows.push(row);
+    //itemRows.push(row);
   }
 
   return (

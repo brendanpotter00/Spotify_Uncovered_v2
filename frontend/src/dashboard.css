@@ -7,9 +7,14 @@
   margin: 2rem;
   padding: 2rem;
 }
+
+.dashboard_container img {
+  border-radius: 50%;
+}
+
 .work {
   outline: 2px solid green;
-  display: flex; 
+  display: flex;
   justify-content: center;
   align-content: center;
 }
