@@ -6,8 +6,6 @@
   justify-content: center;
   margin: 3rem;
   padding: 3rem;
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }
 
 /* =============================Test======================================== */
@@ -16,10 +14,9 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-evenly;
-  font-family: sans-serif;
   background-color: #424242;
   /* background-color: #204064; */
-  border-radius: 50px;
+  border-radius: 100px;
 }
 
 .top20Row > * {
@@ -59,8 +56,13 @@
   flex-wrap: nowrap;
   justify-content: space-between;
 }
+/* @media (min-width: 1000px) {
+
+  .songName {
+    font-size: larger;
+  }
+} */
 .songName {
-  font-size: larger;
   color: #d85c27;
 }
 .songArtist {
@@ -72,7 +74,7 @@
 }
 .stat {
   align-self: flex-end;
-  padding-right: 20px;
+  padding-right: 30px;
 }
 .top20Table {
   display: flex;

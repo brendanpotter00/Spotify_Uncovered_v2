@@ -12,8 +12,7 @@ secondary light = ##587ca5 */
   max-width: 100%;
   /* background-color: #0e2541; */
   background-color: #303030;
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: "Roboto", sans-serif;
 }
 
 .App-header {
@@ -23,5 +22,6 @@ secondary light = ##587ca5 */
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+
   color: white;
 }
