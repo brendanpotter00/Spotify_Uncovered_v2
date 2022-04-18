@@ -5,7 +5,7 @@
     margin-left: 10rem;
     padding: 1rem;
     height: 20vh;
-    width: 20vh;
+    width: 20vw;
 }
 
 .secondbar{
@@ -14,7 +14,7 @@
     margin-left: 6rem;
     padding: 1rem;
     height: 20vh;
-    width: 20vh;
+    width: 20vw;
 }
 
 .thirdbar{
@@ -24,5 +24,11 @@
 
     padding: 1rem;
     height: 20vh;
-    width: 20vh;
+    width: 20vw;
+}
+
+.bar {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
