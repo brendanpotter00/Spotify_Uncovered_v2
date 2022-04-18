@@ -17,8 +17,8 @@
   flex-wrap: nowrap;
   justify-content: space-evenly;
   font-family: sans-serif;
-  border: 2px solid #204064;
-  background-color: #204064;
+  background-color: #424242;
+  /* background-color: #204064; */
   border-radius: 50px;
 }
 

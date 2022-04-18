@@ -10,13 +10,14 @@ secondary light = ##587ca5 */
   flex-direction: column;
   align-items: center;
   max-width: 100%;
-  background-color: #0e2541;
+  /* background-color: #0e2541; */
+  background-color: #303030;
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 .App-header {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
