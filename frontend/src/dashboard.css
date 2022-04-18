@@ -1,15 +1,18 @@
 .dashboard_container {
   outline: 1px solid red;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(60rem, 90rem));
-  grid-gap: 2rem;
-  justify-content: center;
-  margin: 2rem;
-  padding: 2rem;
+  display: block;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 3rem;
+  padding: 0rem;
 }
-.work {
-  outline: 2px solid green;
-  display: flex; 
-  justify-content: center;
-  align-content: center;
+@media (max-width: 768px) {
+  .dashboard_container {
+    outline: 1px solid blue;
+    display: block;
+    height: 100%;
+    width: 80vw;
+    margin: 3rem;
+    padding: 0rem;
+  }
 }

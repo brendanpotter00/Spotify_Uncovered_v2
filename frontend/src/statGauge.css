@@ -1,34 +1,38 @@
-
-.firstbar{
-    display: flex;
-    float: left;
-    margin-left: 10rem;
-    padding: 1rem;
-    height: 20vh;
-    width: 20vw;
+.firstbar {
+  display: flex;
+  float: left;
+  margin-left: 6rem;
+  padding: 1rem;
+  height: 20vh;
+  width: 20vw;
+  outline: 1px solid red;
 }
 
-.secondbar{
-    display: flex;
-    float: left;
-    margin-left: 6rem;
-    padding: 1rem;
-    height: 20vh;
-    width: 20vw;
+.secondbar {
+  display: flex;
+  float: left;
+  margin-left: 6rem;
+  padding: 1rem;
+  height: 20vh;
+  width: 20vw;
+  outline: 1px solid red;
 }
 
-.thirdbar{
-    display: flex;
-    float: left;
-    margin-left: 6rem;
+.thirdbar {
+  display: flex;
+  float: left;
+  margin-left: 6rem;
 
-    padding: 1rem;
-    height: 20vh;
-    width: 20vw;
+  padding: 1rem;
+  height: 20vh;
+  width: 20vw;
+  outline: 1px solid red;
 }
 
 .bar {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  outline: 1px solid green;
+  margin: 1rem;
 }
