@@ -54,17 +54,43 @@ function Dashboard({ props }) {
   //create an item then map it to a card in typescript
   // const itemRows = [];
   const global = [];
-
+  const divRowsFor20MostListened = [];
   for (let item of tracks) {
     const row = (
-      <tr>
-        <td>{item.name}</td>
-        <td>{item.pop}</td>
-        <td>{item.artists}</td>
-        <td>{item.energy}</td>
-        <td>{item.loudness}</td>
-        <td>{item.acousticness}</td>
-      </tr>
+      <div class="top20Row">
+        <div class="top20Img">
+          <img src={item.img} alt={"Song Cover for" + item.name} />
+        </div>
+        <div class="songInfo">
+          <div class="songName">{item.name}</div>
+          <div class="songArtist">{item.artists}</div>
+        </div>
+
+        <div class="songMetrics">
+          <div class="metric">
+            <div class="stringName">{"Energy: "}</div>
+            <div class="stat">{item.energy}</div>
+          </div>
+
+          <div class="metric">
+            <div class="stringName">{"Loudness: "}</div>
+            <div class="stat">{item.loudness}</div>
+          </div>
+
+          <div class="metric">
+            <div class="stringName">{"Acousticness: "}</div>
+            <div class="stat">{item.acousticness}</div>
+          </div>
+        </div>
+      </div>
+      // <tr>
+      //   <td>{item.name}</td>
+      //   <td>{item.pop}</td>
+      //   <td>{item.artists}</td>
+      //   <td>{item.energy}</td>
+      //   <td>{item.loudness}</td>
+      //   <td>{item.acousticness}</td>
+      // </tr>
     );
     let temp = {
       name: item.name,
@@ -75,20 +101,14 @@ function Dashboard({ props }) {
       img: item.img,
     };
     global.push(temp);
-
+    divRowsFor20MostListened.push(row);
     //itemRows.push(row);
   }
 
   return (
     <div className="dashboard_container">
-      I am the dashboard and the user is logged in
-      <p>dashbaord: red / card and cardlist: green</p>
-      {/* <div className="work">
-        <table>
-          <tbody>{itemRows}</tbody>
-        </table>
-      </div> */}
-      <BasicTable props={global} />
+      <div class="top20Table">{divRowsFor20MostListened}</div>
+      {/* {<BasicTable props={global} />} */}
       <StatGauge />
       <CardList />
     </div>

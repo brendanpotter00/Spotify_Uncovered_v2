@@ -1,20 +1,86 @@
 .dashboard_container {
-  outline: 1px solid red;
+  /* outline: 1px solid red; */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(60rem, 90rem));
+  /* grid-template-columns: repeat(auto-fit, minmax(60rem, 90rem)); */
   grid-gap: 2rem;
   justify-content: center;
-  margin: 2rem;
-  padding: 2rem;
+  margin: 3rem;
+  padding: 3rem;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
-.dashboard_container img {
-  border-radius: 50%;
+/* =============================Test======================================== */
+.top20Row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  font-family: sans-serif;
+  border: 2px solid #204064;
+  background-color: #204064;
+  border-radius: 50px;
 }
 
-.work {
-  outline: 2px solid green;
+.top20Row > * {
+  flex-grow: 1;
+}
+
+.top20Img {
   display: flex;
   justify-content: center;
-  align-content: center;
+  max-width: 20%;
+  padding: 10px 10px 10px 10px;
+}
+.top20Img img {
+  border-radius: 50%;
+  max-width: 100%;
+  max-height: 100%;
+}
+.songInfo {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+}
+
+.songMetrics {
+  /* flex-basis: auto; */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  color: white;
+}
+
+.metric {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.songName {
+  font-size: larger;
+  color: #d85c27;
+}
+.songArtist {
+  font-size: medium;
+  color: white;
+}
+.stringName {
+  align-self: flex-start;
+}
+.stat {
+  align-self: flex-end;
+  padding-right: 20px;
+}
+.top20Table {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  /* align-items: center; */
+  justify-content: space-evenly;
+  row-gap: 20px;
+
+  /* max-width: 90%; */
 }
