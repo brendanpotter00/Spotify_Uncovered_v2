@@ -1,11 +1,12 @@
 .firstbar {
-  display: flex;
+  display: block;
   float: left;
   margin-left: 6rem;
   padding: 1rem;
   height: 20vh;
   width: 20vw;
   outline: 1px solid red;
+  box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.329);
 }
 
 .secondbar {
@@ -16,6 +17,7 @@
   height: 20vh;
   width: 20vw;
   outline: 1px solid red;
+  box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.329);
 }
 
 .thirdbar {
@@ -27,6 +29,11 @@
   height: 20vh;
   width: 20vw;
   outline: 1px solid red;
+  box-shadow: 5px 5px 20px 0.5px rgba(121, 52, 52, 0.329);
+}
+.circleBar {
+  box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.329);
+  border-radius: 1rem;
 }
 
 .bars {
@@ -35,4 +42,7 @@
   align-items: center;
   outline: 1px solid green;
   margin: 1rem;
+}
+
+.firstbar > h3 {
 }

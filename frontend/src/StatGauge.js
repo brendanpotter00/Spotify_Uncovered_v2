@@ -12,7 +12,9 @@ function StatGauge({ props }) {
   return (
     <div className="bars">
       <div className="firstbar">
+        <h3> Bar 1 </h3>
         <CircularProgressbar
+          className="circleBar"
           value={percentage}
           text={`${firstSongValence}%`}
           styles={buildStyles({
@@ -28,7 +30,9 @@ function StatGauge({ props }) {
         />
       </div>
       <div className="secondbar">
+        <h3> Bar 2 </h3>
         <CircularProgressbar
+          className="circleBar"
           value={percentage}
           text={`${percentage}%`}
           styles={buildStyles({
@@ -44,7 +48,9 @@ function StatGauge({ props }) {
         />
       </div>
       <div className="thirdbar">
+        <h3> Bar 3 </h3>
         <CircularProgressbar
+          className="circleBar"
           value={percentage}
           text={`${percentage}%`}
           styles={buildStyles({
