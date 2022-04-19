@@ -1,14 +1,27 @@
+/* Primary = #D85C27 
+primary dark = #97401b
+primary light = #df7c52
+secondary = #2f5c8f
+secondary dark = #204064
+secondary light = ##587ca5 */
+
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100%;
+  /* background-color: #0e2541; */
+  background-color: #303030;
+  font-family: "Roboto", sans-serif;
 }
 
 .App-header {
-  background-color: black;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
+
   color: white;
 }
