@@ -6,12 +6,13 @@ import "react-circular-progressbar/dist/styles.css";
 
 const percentage = 66;
 function StatGauge({ props }) {
+  const firstSongValence = props[0].valence;
   return (
     <div className="bars">
       <div className="firstbar">
         <CircularProgressbar
           value={percentage}
-          text={`${percentage}%`}
+          text={`${firstSongValence}%`}
           styles={buildStyles({
             rotation: 0.25,
             strokeLinecap: "round",

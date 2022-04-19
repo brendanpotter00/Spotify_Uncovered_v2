@@ -9,8 +9,8 @@ secondary light = #587ca5 */
   position: absolute;
   top: 0;
   right: 0;
-  left: 0;
-  bottom: 0;
+  width: 100%;
+
   background-color: #303030;
   font-family: "Roboto", sans-serif;
   font-size: calc(10px + 2vmin);

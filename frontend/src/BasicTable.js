@@ -19,7 +19,7 @@ export default function BasicTable({ props }) {
             <TableCell align="right">artist name</TableCell>
             <TableCell align="right">energy</TableCell>
             <TableCell align="right">loudness</TableCell>
-            <TableCell align="right">acousticness</TableCell>
+            <TableCell align="right">valence</TableCell>
             <TableCell align="right">ablum</TableCell>
           </TableRow>
         </TableHead>
@@ -35,7 +35,7 @@ export default function BasicTable({ props }) {
               <TableCell align="right">{prop.artist}</TableCell>
               <TableCell align="right">{prop.energy}</TableCell>
               <TableCell align="right">{prop.loudness}</TableCell>
-              <TableCell align="right">{prop.acousticness}</TableCell>
+              <TableCell align="right">{prop.valence}</TableCell>
               <TableCell align="right">
                 <img
                   width="100"
