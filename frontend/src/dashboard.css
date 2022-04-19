@@ -64,6 +64,9 @@
 } */
 .songName {
   color: #d85c27;
+  max-width: 15vw;
+  
+  outline: 1px solid green;
 }
 .songArtist {
   font-size: medium;

@@ -134,7 +134,6 @@ function Dashboard({ props }) {
         </div>
       </div>
     );
-
     divRowsFor20MostListened.push(row);
   }
 
