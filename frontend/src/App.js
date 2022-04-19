@@ -62,9 +62,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <header className="App-header">
-          {token ? <Dashboard props={props} /> : <Login />}
-        </header>
+        {token ? <Dashboard props={props} /> : <Login />}
       </div>
     </ThemeProvider>
   );
