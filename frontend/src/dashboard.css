@@ -1,14 +1,14 @@
 .dashboard_container {
-
   /* outline: 1px solid red; */
   display: grid;
   /* grid-template-columns: repeat(auto-fit, minmax(60rem, 90rem)); */
   grid-gap: 2rem;
   justify-content: center;
   padding: 1rem;
+  width: 100%;
 }
 
-@media (min-width:800px) {
+@media (min-width: 800px) {
   .dashboard_container {
     padding: 3rem;
   }
@@ -23,8 +23,7 @@
   background-color: #424242;
   /* background-color: #204064; */
   border-radius: 100px;
-  box-shadow: 5px 5px 20px .5px rgba(0, 0, 0, 0.329);
-  
+  box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.329);
 }
 
 .top20Row > * {
@@ -41,7 +40,7 @@
   border-radius: 50%;
   max-width: 100%;
   max-height: 100%;
-  box-shadow: 5px 5px 20px .5px rgba(0, 0, 0, 0.087);
+  box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.087);
 }
 .songInfo {
   display: flex;
@@ -65,16 +64,10 @@
   flex-wrap: nowrap;
   justify-content: space-between;
 }
-/* @media (min-width: 1000px) {
 
-  .songName {
-    font-size: larger;
-  }
-} */
 .songName {
   color: #d85c27;
   max-width: 15vw;
-  
 }
 .songArtist {
   /* font-size: medium; */
@@ -97,5 +90,4 @@
   row-gap: 20px;
 
   /* max-width: 90%; */
-
 }

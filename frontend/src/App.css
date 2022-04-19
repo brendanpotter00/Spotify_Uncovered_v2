@@ -6,10 +6,11 @@ secondary dark = #204064
 secondary light = #587ca5 */
 
 .App {
-  position:absolute;
-  top:0;
-  right:0;
-  max-width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
   background-color: #303030;
   font-family: "Roboto", sans-serif;
   font-size: calc(10px + 2vmin);
@@ -20,14 +21,13 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-
-  background-color:  #97401bd0;
-  border:0;
+  background-color: #97401bd0;
+  border: 0;
   border-radius: 50 px;
 }
 
 body::-webkit-scrollbar-track {
-  background-color:  #0f243b;
+  background-color: #0f243b;
 }
 
 @media (max-width: 600px) {
@@ -35,5 +35,3 @@ body::-webkit-scrollbar-track {
     font-size: calc(5px + 1vmin);
   }
 }
-
-
