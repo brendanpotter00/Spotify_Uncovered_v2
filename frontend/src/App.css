@@ -3,7 +3,7 @@ primary dark = #97401b
 primary light = #df7c52
 secondary = #2f5c8f
 secondary dark = #204064
-secondary light = ##587ca5 */
+secondary light = #587ca5 */
 
 .App {
   position:absolute;
@@ -14,6 +14,20 @@ secondary light = ##587ca5 */
   font-family: "Roboto", sans-serif;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+body::-webkit-scrollbar {
+  width: 7px;
+}
+
+body::-webkit-scrollbar-thumb {
+
+  background-color:  #97401bd0;
+  border:0;
+  border-radius: 50 px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color:  #0f243b;
 }
 
 @media (max-width: 600px) {
