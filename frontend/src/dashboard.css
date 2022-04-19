@@ -5,7 +5,13 @@
   /* grid-template-columns: repeat(auto-fit, minmax(60rem, 90rem)); */
   grid-gap: 2rem;
   justify-content: center;
-  padding: .5rem;
+  padding: 1rem;
+}
+
+@media (min-width:800px) {
+  .dashboard_container {
+    padding: 3rem;
+  }
 }
 
 /* =============================Test======================================== */
