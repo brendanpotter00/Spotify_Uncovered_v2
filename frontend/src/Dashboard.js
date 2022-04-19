@@ -77,7 +77,7 @@ function Dashboard({ props }) {
     spotify.getMyTopTracks().then(
       (tracks) => {
         let trackFts = tracks.items.map((track) => {
-          console.log(track.album.images[0].url);
+          //console.log(track.album.images[0].url);
           spotify.getAudioFeaturesForTrack(track.id).then((results) => {
             let temp = {
               id: track.id,
@@ -105,7 +105,7 @@ function Dashboard({ props }) {
 
   //create an item then map it to a card in typescript
   // const itemRows = [];
-  const global = [];
+  const trackInfo = [];
   const divRowsFor20MostListened = [];
   for (let item of tracks) {
     const row = (
@@ -131,12 +131,22 @@ function Dashboard({ props }) {
 
           <div class="metric">
             <div class="stringName">{"Acousticness: "}</div>
-            <div class="stat">{item.acousticness}</div>
+            <div class="stat">{item.valence}</div>
           </div>
         </div>
       </div>
     );
     divRowsFor20MostListened.push(row);
+
+    let trackInfoTemp = {
+      name: item.name,
+      artists: item.artists,
+      energy: item.energy,
+      loudness: item.loudness,
+      valence: item.valence,
+      img: item.img,
+    };
+    trackInfo.push(trackInfoTemp);
   }
 
   return (
@@ -164,10 +174,10 @@ function Dashboard({ props }) {
           </Toolbar>
         </AppBar>
       </Box>
-      {/* <StatGauge /> */}
+      <StatGauge props={trackInfo} />
 
       <div class="top20Table">{divRowsFor20MostListened}</div>
-      {/* {<BasicTable props={global} />} */}
+      {/* <BasicTable props={trackInfo} /> */}
 
       {/* <CardList /> */}
     </div>

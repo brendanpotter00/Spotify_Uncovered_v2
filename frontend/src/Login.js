@@ -5,7 +5,7 @@ import "./login.css";
 import Button from "@mui/material/Button";
 
 function Login() {
-  console.log(window.location.href);
+  //console.log(window.location.href);
   return (
     <div className="login">
       <img
