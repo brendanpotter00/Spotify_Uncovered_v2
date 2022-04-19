@@ -29,9 +29,9 @@
   outline: 1px solid red;
 }
 
-.bar {
+.bars {
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: center;
   outline: 1px solid green;
   margin: 1rem;
