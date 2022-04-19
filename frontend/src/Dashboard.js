@@ -148,7 +148,7 @@ function Dashboard({ props }) {
               component="div"
               sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
             >
-              Spotify Uncovered
+              spotify uncovered
             </Typography>
             <Search>
               <SearchIconWrapper>
@@ -162,11 +162,12 @@ function Dashboard({ props }) {
           </Toolbar>
         </AppBar>
       </Box>
+      {/* <StatGauge /> */}
 
       <div class="top20Table">{divRowsFor20MostListened}</div>
       {/* {<BasicTable props={global} />} */}
-      <StatGauge />
-      <CardList />
+
+      {/* <CardList /> */}
     </div>
   );
 }
