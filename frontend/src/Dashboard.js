@@ -85,10 +85,12 @@ function Dashboard({ props }) {
               artists: track.artists[0].name,
               energy: results.energy,
               loudness: results.loudness,
+              //remove acoutstic
               acousticness: results.acousticness,
+              valence: results.valence,
               img: track.album.images[0].url,
             };
-
+            console.log(temp);
             setTracks((tracks) => [...tracks, temp]);
             //console.log(tracks);
           });
