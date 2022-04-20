@@ -15,6 +15,7 @@ secondary light = #587ca5 */
   font-family: "Roboto", sans-serif;
   font-size: calc(10px + 2vmin);
   color: white;
+  /* overflow-x: hidden; */
 }
 body::-webkit-scrollbar {
   width: 7px;
@@ -23,7 +24,7 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb {
   background-color: #97401bd0;
   border: 0;
-  border-radius: 50 px;
+  border-radius: 50px;
 }
 
 body::-webkit-scrollbar-track {
