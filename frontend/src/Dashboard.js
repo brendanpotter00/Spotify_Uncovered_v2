@@ -86,9 +86,6 @@ function Dashboard({ props }) {
   function intForLoudness(metric) {
     return Math.round((metric / -60) * 10);
   }
-  function avgForZeroToOne() {
-    return 0;
-  }
 
   useEffect(() => {
     spotify.getMyTopTracks().then(
@@ -102,7 +99,6 @@ function Dashboard({ props }) {
               artists: track.artists[0].name,
               energy: results.energy,
               loudness: results.loudness,
-              //remove acoutstic
               acousticness: results.acousticness,
               valence: results.valence,
               img: track.album.images[0].url,
@@ -121,17 +117,12 @@ function Dashboard({ props }) {
   }, []);
 
   //create an item then map it to a card in typescript
-  // const itemRows = [];
   const trackInfo = [];
-  const avgsForBars = [];
   const divRowsFor20MostListened = [];
   //variables for 1-10 metric transformation===================================
   let transformedEnergy = 0;
   let transformedValence = 0;
   let transformedLoudness = 0;
-  let allEnergies = [];
-  let allValences = [];
-  let allLoudnesses = [];
 
   for (let item of tracks) {
     //FUNCTION FOR TRANSFORMING METRICS FOR CARDS HERE=============================
@@ -163,12 +154,11 @@ function Dashboard({ props }) {
             <div class="stringName">{"Acousticness: "}</div>
             <div class="stat">{transformedValence}</div>
           </div>
+          {/* <div class="rank">1</div> */}
         </div>
       </div>
     );
     divRowsFor20MostListened.push(row);
-    allEnergies.push(transformedEnergy);
-    allValences.push(transformedValence);
 
     //FUNCTION FOR FINDING METRIC AVGS=============================
     //below probably goes inside function
@@ -212,7 +202,6 @@ function Dashboard({ props }) {
 
       <div class="top20Table">{divRowsFor20MostListened}</div>
       {/* <BasicTable props={trackInfo} /> */}
-
       {/* <CardList /> */}
     </div>
   );
