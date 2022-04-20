@@ -157,7 +157,7 @@ function Dashboard({ props }) {
           </div>
 
           <div class="metric">
-            <div class="stringName">{"Acousticness: "}</div>
+            <div class="stringName">{"Valence: "}</div>
             <div class="stat">{transformedValence}</div>
           </div>
           {/* <div class="rank">1</div> */}

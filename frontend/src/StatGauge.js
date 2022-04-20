@@ -37,7 +37,7 @@ function StatGauge({ props }) {
           value={energyAvg * 10}
           text={`${energyAvg}`}
           styles={buildStyles({
-            rotation: 0.25,
+            rotation: 1,
             strokeLinecap: "round",
             textSize: "16px",
             pathTransitionDuration: 0.5,
@@ -55,7 +55,7 @@ function StatGauge({ props }) {
           value={valenceAvg * 10}
           text={`${valenceAvg}`}
           styles={buildStyles({
-            rotation: 0.25,
+            rotation: 1,
             strokeLinecap: "round",
             textSize: "16px",
             pathTransitionDuration: 0.5,
@@ -73,7 +73,7 @@ function StatGauge({ props }) {
           value={loudnessAvg * 10}
           text={`${loudnessAvg}`}
           styles={buildStyles({
-            rotation: 0.25,
+            rotation: 1,
             strokeLinecap: "round",
             textSize: "16px",
             pathTransitionDuration: 0.5,
