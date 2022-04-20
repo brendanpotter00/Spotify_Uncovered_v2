@@ -82,23 +82,34 @@ function Dashboard({ props }) {
     return Math.round(metric * 10);
   }
   //14 loudest decibal rating???
-  function intForLoudness(metric) {
-    return Math.round((metric / -60) * 10);
+  function decibalToAudioIntensity(metric) {
+    let audioIntensity = 10 ** ((metric * -1) / 10 - 12);
+    return 10 ** ((metric * -1) / 10 - 12);
   }
+  function intForLoudness(metric) {
+    let temp = Math.round(decibalToAudioIntensity(metric) * 10 ** 12);
+    if (temp >= 10) {
+      temp = 10;
+    }
+    return temp;
+  }
+  //console.log(intForLoudness(-9));
 
   //function for searching tracks
   function searchTracksFunction(query) {
     return spotify.searchTracks(query, { limit: 1, offset: 2 });
   }
 
-  console.log(search);
+  //console.log(search);
 
   useEffect(() => {
+    let trackList = [];
     spotify.getMyTopTracks().then(
       (tracks) => {
         let trackFts = tracks.items.map((track) => {
           //console.log(track.album.images[0].url);
           spotify.getAudioFeaturesForTrack(track.id).then((results) => {
+            console.log(track.name);
             let temp = {
               id: track.id,
               name: track.name,
@@ -107,20 +118,22 @@ function Dashboard({ props }) {
               loudness: results.loudness,
               acousticness: results.acousticness,
               valence: results.valence,
+              dancibility: results.dancibility,
+              instrumentalness: results.instrumentalness,
               img: track.album.images[0].url,
             };
-            //console.log(temp);
+            //console.log("loud " + temp.loudness);
             setTracks((tracks) => [...tracks, temp]);
             //console.log(tracks);
           });
         });
       },
-
       (err) => {
         console.log("Error:", err);
       }
     );
   }, []);
+  //console.log(tracks);
 
   //create an item then map it to a card in typescript
   const trackInfo = [];
@@ -130,7 +143,8 @@ function Dashboard({ props }) {
   let transformedValence = 0;
   let transformedLoudness = 0;
 
-  for (let item of tracks) {
+  for (var i = 0; i < tracks.length; i += 1) {
+    let item = tracks[i];
     //FUNCTION FOR TRANSFORMING METRICS FOR CARDS HERE=============================
     transformedEnergy = intForZeroToOne(item.energy);
     transformedValence = intForZeroToOne(item.valence);
