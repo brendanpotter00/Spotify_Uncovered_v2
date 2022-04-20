@@ -73,6 +73,11 @@ function Dashboard({ props }) {
   const [fts, setFts] = useState([]);
   const [exp, setExp] = useState([]);
 
+  //FUNCTION CREATION HERE===============================================
+  // valence: float 0-1
+  // loudness: float 0-60 DB
+  // energy: float 0-1
+
   useEffect(() => {
     spotify.getMyTopTracks().then(
       (tracks) => {
@@ -107,7 +112,13 @@ function Dashboard({ props }) {
   // const itemRows = [];
   const trackInfo = [];
   const divRowsFor20MostListened = [];
+  //variables for 1-10 metric transformation===================================
+  let transformedEnergy = 0;
+  let transformedValence = 0;
+  let transformedLoudness = 0;
+
   for (let item of tracks) {
+    //FUNCTION FOR TRANSFORMING METRICS FOR CARDS HERE=============================
     const row = (
       <div class="top20Row">
         <div class="top20Img">
@@ -138,6 +149,8 @@ function Dashboard({ props }) {
     );
     divRowsFor20MostListened.push(row);
 
+    //FUNCTION FOR FINDING METRIC AVGS=============================
+    //below probably goes inside function
     let trackInfoTemp = {
       name: item.name,
       artists: item.artists,
