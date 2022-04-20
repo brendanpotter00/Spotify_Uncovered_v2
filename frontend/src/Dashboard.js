@@ -70,8 +70,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function Dashboard({ props }) {
   const spotify = props.spotify;
   const [tracks, setTracks] = useState([]);
-  const [fts, setFts] = useState([]);
-  const [exp, setExp] = useState([]);
+  const [search, setSearch] = useState("");
 
   //FUNCTION CREATION HERE===============================================
   // valence: float 0-1
@@ -86,6 +85,13 @@ function Dashboard({ props }) {
   function intForLoudness(metric) {
     return Math.round((metric / -60) * 10);
   }
+
+  //function for searching tracks
+  function searchTracksFunction(query) {
+    return spotify.searchTracks(query, { limit: 1, offset: 2 });
+  }
+
+  console.log(search);
 
   useEffect(() => {
     spotify.getMyTopTracks().then(
@@ -193,6 +199,8 @@ function Dashboard({ props }) {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
+                onChange={(e) => setSearch(e.target.value)}
+                onRequestSearch={searchTracksFunction(search)}
               />
             </Search>
           </Toolbar>
