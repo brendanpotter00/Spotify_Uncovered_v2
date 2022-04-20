@@ -70,8 +70,28 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function Dashboard({ props }) {
   const spotify = props.spotify;
   const [tracks, setTracks] = useState([]);
-  const [fts, setFts] = useState([]);
-  const [exp, setExp] = useState([]);
+  const [search, setSearch] = useState("");
+
+  //FUNCTION CREATION HERE===============================================
+  // valence: float 0-1
+  // loudness: float 0-60 DB
+  // energy: float 0-1
+  //https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
+
+  function intForZeroToOne(metric) {
+    return Math.round(metric * 10);
+  }
+  //14 loudest decibal rating???
+  function intForLoudness(metric) {
+    return Math.round((metric / -60) * 10);
+  }
+
+  //function for searching tracks
+  function searchTracksFunction(query) {
+    return spotify.searchTracks(query, { limit: 1, offset: 2 });
+  }
+
+  console.log(search);
 
   useEffect(() => {
     spotify.getMyTopTracks().then(
@@ -85,12 +105,11 @@ function Dashboard({ props }) {
               artists: track.artists[0].name,
               energy: results.energy,
               loudness: results.loudness,
-              //remove acoutstic
               acousticness: results.acousticness,
               valence: results.valence,
               img: track.album.images[0].url,
             };
-            console.log(temp);
+            //console.log(temp);
             setTracks((tracks) => [...tracks, temp]);
             //console.log(tracks);
           });
@@ -104,10 +123,18 @@ function Dashboard({ props }) {
   }, []);
 
   //create an item then map it to a card in typescript
-  // const itemRows = [];
   const trackInfo = [];
   const divRowsFor20MostListened = [];
+  //variables for 1-10 metric transformation===================================
+  let transformedEnergy = 0;
+  let transformedValence = 0;
+  let transformedLoudness = 0;
+
   for (let item of tracks) {
+    //FUNCTION FOR TRANSFORMING METRICS FOR CARDS HERE=============================
+    transformedEnergy = intForZeroToOne(item.energy);
+    transformedValence = intForZeroToOne(item.valence);
+    transformedLoudness = intForLoudness(item.loudness);
     const row = (
       <div class="top20Row">
         <div class="top20Img">
@@ -121,29 +148,32 @@ function Dashboard({ props }) {
         <div class="songMetrics">
           <div class="metric">
             <div class="stringName">{"Energy: "}</div>
-            <div class="stat">{item.energy}</div>
+            <div class="stat">{transformedEnergy}</div>
           </div>
 
           <div class="metric">
             <div class="stringName">{"Loudness: "}</div>
-            <div class="stat">{item.loudness}</div>
+            <div class="stat">{transformedLoudness}</div>
           </div>
 
           <div class="metric">
-            <div class="stringName">{"Acousticness: "}</div>
-            <div class="stat">{item.valence}</div>
+            <div class="stringName">{"Valence: "}</div>
+            <div class="stat">{transformedValence}</div>
           </div>
+          {/* <div class="rank">1</div> */}
         </div>
       </div>
     );
     divRowsFor20MostListened.push(row);
 
+    //FUNCTION FOR FINDING METRIC AVGS=============================
+    //below probably goes inside function
     let trackInfoTemp = {
       name: item.name,
       artists: item.artists,
-      energy: item.energy,
-      loudness: item.loudness,
-      valence: item.valence,
+      energy: transformedEnergy,
+      loudness: transformedLoudness,
+      valence: transformedValence,
       img: item.img,
     };
     trackInfo.push(trackInfoTemp);
@@ -169,6 +199,8 @@ function Dashboard({ props }) {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
+                onChange={(e) => setSearch(e.target.value)}
+                onRequestSearch={searchTracksFunction(search)}
               />
             </Search>
           </Toolbar>
@@ -178,7 +210,6 @@ function Dashboard({ props }) {
 
       <div class="top20Table">{divRowsFor20MostListened}</div>
       {/* <BasicTable props={trackInfo} /> */}
-
       {/* <CardList /> */}
     </div>
   );
