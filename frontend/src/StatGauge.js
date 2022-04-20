@@ -36,15 +36,17 @@ function StatGauge({ props }) {
           className="circleBar"
           value={energyAvg * 10}
           text={`${energyAvg}`}
+          background
+          backgroundPadding={6}
           styles={buildStyles({
             rotation: 1,
             strokeLinecap: "round",
-            textSize: "16px",
+            textSize: "1.8rem",
             pathTransitionDuration: 0.5,
-            pathColor: `rgba(62, 152, 199, ${percentage / 10})`,
-            textColor: "#f88",
-            trailColor: "#d6d6d6",
-            backgroundColor: "#3e98c7",
+            backgroundColor: "#FDA766",
+            textColor: "#fff",
+            pathColor: "#fff",
+            trailColor: "transparent"
           })}
         />
         <h3> Energy </h3>
@@ -54,15 +56,17 @@ function StatGauge({ props }) {
           className="circleBar"
           value={valenceAvg * 10}
           text={`${valenceAvg}`}
+          background
+          backgroundPadding={6}
           styles={buildStyles({
             rotation: 1,
             strokeLinecap: "round",
-            textSize: "16px",
+            textSize: "1.8rem",
             pathTransitionDuration: 0.5,
-            pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-            textColor: "#f88",
-            trailColor: "#d6d6d6",
-            backgroundColor: "#3e98c7",
+            backgroundColor: "#FD9346",
+            textColor: "#fff",
+            pathColor: "#fff",
+            trailColor: "transparent"
           })}
         />
         <h3> Valence </h3>
@@ -72,15 +76,17 @@ function StatGauge({ props }) {
           className="circleBar"
           value={loudnessAvg * 10}
           text={`${loudnessAvg}`}
+          background
+          backgroundPadding={6}
           styles={buildStyles({
             rotation: 1,
             strokeLinecap: "round",
-            textSize: "16px",
+            textSize: "1.8rem",
             pathTransitionDuration: 0.5,
-            pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
-            textColor: "#f88",
-            trailColor: "#d6d6d6",
-            backgroundColor: "#3e98c7",
+            backgroundColor: "#FD7F2C",
+            textColor: "#fff",
+            pathColor: "#fff",
+            trailColor: "transparent"
           })}
         />
         <h3> Loudness </h3>
