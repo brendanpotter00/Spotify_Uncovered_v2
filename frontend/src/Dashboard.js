@@ -79,37 +79,33 @@ function Dashboard({ props }) {
   //https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
 
   function intForZeroToOne(metric) {
-    return Math.round(metric * 10);
+    return Math.round(metric * 100);
   }
-  //14 loudest decibal rating???
+
   function decibalToAudioIntensity(metric) {
-    let audioIntensity = 10 ** ((metric * -1) / 10 - 12);
+    // let audioIntensity = 10 ** ((metric * -1) / 10 - 12);
     return 10 ** ((metric * -1) / 10 - 12);
   }
   function intForLoudness(metric) {
-    let temp = Math.round(decibalToAudioIntensity(metric) * 10 ** 12);
-    if (temp >= 10) {
-      temp = 10;
+    let temp = Math.round(10 * (decibalToAudioIntensity(metric) * 10 ** 12));
+
+    if (temp >= 100) {
+      temp = 100;
     }
     return temp;
   }
-  //console.log(intForLoudness(-9));
 
   //function for searching tracks
   function searchTracksFunction(query) {
     return spotify.searchTracks(query, { limit: 1, offset: 2 });
   }
 
-  //console.log(search);
-
   useEffect(() => {
     let trackList = [];
     spotify.getMyTopTracks().then(
       (tracks) => {
         let trackFts = tracks.items.map((track) => {
-          //console.log(track.album.images[0].url);
           spotify.getAudioFeaturesForTrack(track.id).then((results) => {
-            console.log(track.name);
             let temp = {
               id: track.id,
               name: track.name,
@@ -171,7 +167,7 @@ function Dashboard({ props }) {
           </div>
 
           <div class="metric">
-            <div class="stringName">{"Valence: "}</div>
+            <div class="stringName">{"Happiness: "}</div>
             <div class="stat">{transformedValence}</div>
           </div>
           {/* <div class="rank">1</div> */}
@@ -213,8 +209,8 @@ function Dashboard({ props }) {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
-                onChange={(e) => setSearch(e.target.value)}
-                onRequestSearch={searchTracksFunction(search)}
+                // onChange={(e) => setSearch(e.target.value)}
+                // onRequestSearch={searchTracksFunction(search)}
               />
             </Search>
           </Toolbar>

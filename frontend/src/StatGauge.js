@@ -34,7 +34,7 @@ function StatGauge({ props }) {
       <div className="firstbar">
         <CircularProgressbar
           className="circleBar"
-          value={energyAvg * 10}
+          value={energyAvg}
           text={`${energyAvg}`}
           background
           backgroundPadding={6}
@@ -46,7 +46,7 @@ function StatGauge({ props }) {
             backgroundColor: "#FDA766",
             textColor: "#fff",
             pathColor: "#fff",
-            trailColor: "transparent"
+            trailColor: "transparent",
           })}
         />
         <h3> Energy </h3>
@@ -54,7 +54,7 @@ function StatGauge({ props }) {
       <div className="secondbar">
         <CircularProgressbar
           className="circleBar"
-          value={valenceAvg * 10}
+          value={valenceAvg}
           text={`${valenceAvg}`}
           background
           backgroundPadding={6}
@@ -66,15 +66,15 @@ function StatGauge({ props }) {
             backgroundColor: "#FD9346",
             textColor: "#fff",
             pathColor: "#fff",
-            trailColor: "transparent"
+            trailColor: "transparent",
           })}
         />
-        <h3> Valence </h3>
+        <h3> Happiness </h3>
       </div>
       <div className="thirdbar">
         <CircularProgressbar
           className="circleBar"
-          value={loudnessAvg * 10}
+          value={loudnessAvg}
           text={`${loudnessAvg}`}
           background
           backgroundPadding={6}
@@ -86,7 +86,7 @@ function StatGauge({ props }) {
             backgroundColor: "#FD7F2C",
             textColor: "#fff",
             pathColor: "#fff",
-            trailColor: "transparent"
+            trailColor: "transparent",
           })}
         />
         <h3> Loudness </h3>
