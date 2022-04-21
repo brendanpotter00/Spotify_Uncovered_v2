@@ -105,6 +105,7 @@ function Dashboard({ props }) {
     return spotify.searchTracks(query, { limit: 1, offset: 2 });
   }
   //GITHUB SEARCH EXAMPLES=====================================================================================
+  //https://github.com/koolguru/Spotify-Search-Bar/blob/master/src/App.js
   function getSearchResults(query) {
     const access_token = props.token;
     const searchQuery = query;
