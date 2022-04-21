@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Component } from "react";
 import axios from "axios";
 import { TrackAnalysis, UserTracks } from "react-spotify-api";
 import "./dashboard.css";
@@ -6,6 +6,8 @@ import Card from "./Card.js";
 import BasicTable from "./BasicTable.js";
 import StatGauge from "./StatGauge";
 import CardList from "./CardList";
+import { Input, List, Avatar } from "antd";
+
 //=======================================================================
 
 import Table from "@mui/material/Table";
@@ -69,8 +71,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function Dashboard({ props }) {
   const spotify = props.spotify;
+  const axios = require("axios");
   const [tracks, setTracks] = useState([]);
   const [search, setSearch] = useState("");
+  const [searchOptions, setSearchOptions] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
 
   //FUNCTION CREATION HERE===============================================
   // valence: float 0-1
@@ -99,8 +104,61 @@ function Dashboard({ props }) {
   function searchTracksFunction(query) {
     return spotify.searchTracks(query, { limit: 1, offset: 2 });
   }
+  //GITHUB SEARCH EXAMPLES=====================================================================================
+  function getSearchResults(query) {
+    const access_token = props.token;
+    const searchQuery = query;
+    console.log("Search Query: " + searchQuery.toString());
+    const fetchURL = encodeURI(`q=${searchQuery}`);
+    fetch(`https://api.spotify.com/v1/search?${fetchURL}&type=track`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw Error("Response Not Ok");
+        }
+        console.log(response);
+        return response;
+      })
+      .then((response) => response.json())
+      .then(({ tracks }) => {
+        console.log(tracks.items[0].name);
+        const results = [];
+        tracks.items.forEach((element) => {
+          let artists = [];
+          element.artists.forEach((artist) => artists.push(artist.name));
+          results.push(
+            <List.Item key={element.uri}>
+              <List.Item.Meta
+                avatar={
+                  <Avatar
+                    shape="square"
+                    size="large"
+                    src={element.album.images[0].url}
+                  />
+                }
+                title={<p href="https://ant.design">{element.name}</p>}
+                description={artists.join(", ")}
+              />
+            </List.Item>
+          );
+        });
+        setSearchResults(results);
+      })
+      .catch((error) =>
+        this.setState({
+          searchResults: [],
+        })
+      );
+  }
 
   useEffect(() => {
+    for (let i = 0; i < 10; i++) {
+      console.log(getSearchResults("hello"));
+    }
     let trackList = [];
     spotify.getMyTopTracks().then(
       (tracks) => {
@@ -120,7 +178,6 @@ function Dashboard({ props }) {
             };
 
             setTracks((tracks) => [...tracks, temp]);
-            //console.log(tracks);
           });
         });
       },
@@ -129,7 +186,6 @@ function Dashboard({ props }) {
       }
     );
   }, []);
-  //console.log(tracks);
 
   //create an item then map it to a card in typescript
   const trackInfo = [];
@@ -216,7 +272,9 @@ function Dashboard({ props }) {
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
                 // onChange={(e) => setSearch(e.target.value)}
-                // onRequestSearch={searchTracksFunction(search)}
+                onChange={(value) => this.getSearchResults(value.target.value)}
+                onSearch={(value) => console.log(value)}
+                //onRequestSearch={searchTracksFunction(search)}
               />
             </Search>
           </Toolbar>
