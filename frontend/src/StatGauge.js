@@ -6,7 +6,7 @@ import "react-circular-progressbar/dist/styles.css";
 
 const percentage = 66;
 function StatGauge({ props }) {
-  //console.log(props);
+
   //props[0].valence;
   //console.log(props[0].valence);
 
@@ -34,6 +34,7 @@ function StatGauge({ props }) {
       <div className="firstbar">
         <CircularProgressbar
           className="circleBar"
+
           value={energyAvg}
           text={`${energyAvg}`}
           background
@@ -69,7 +70,9 @@ function StatGauge({ props }) {
             trailColor: "transparent",
           })}
         />
+
         <h3> Happiness </h3>
+
       </div>
       <div className="thirdbar">
         <CircularProgressbar

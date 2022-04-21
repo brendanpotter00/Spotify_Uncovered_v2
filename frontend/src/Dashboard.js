@@ -100,6 +100,23 @@ function Dashboard({ props }) {
     return spotify.searchTracks(query, { limit: 1, offset: 2 });
   }
 
+  //FUNCTION CREATION HERE===============================================
+  // valence: float 0-1
+  // loudness: float 0-60 DB
+  // energy: float 0-1
+  //https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
+
+  function intForZeroToOne(metric) {
+    return Math.round(metric * 10);
+  }
+  //14 loudest decibal rating???
+  function intForLoudness(metric) {
+    return Math.round((metric / -60) * 10);
+  }
+  function avgForZeroToOne() {
+    return 0;
+  }
+
   useEffect(() => {
     let trackList = [];
     spotify.getMyTopTracks().then(
@@ -118,7 +135,7 @@ function Dashboard({ props }) {
               instrumentalness: results.instrumentalness,
               img: track.album.images[0].url,
             };
-            //console.log("loud " + temp.loudness);
+
             setTracks((tracks) => [...tracks, temp]);
             //console.log(tracks);
           });
@@ -133,14 +150,18 @@ function Dashboard({ props }) {
 
   //create an item then map it to a card in typescript
   const trackInfo = [];
+  const avgsForBars = [];
   const divRowsFor20MostListened = [];
   //variables for 1-10 metric transformation===================================
   let transformedEnergy = 0;
   let transformedValence = 0;
   let transformedLoudness = 0;
 
-  for (var i = 0; i < tracks.length; i += 1) {
-    let item = tracks[i];
+  let allEnergies = [];
+  let allValences = [];
+  let allLoudnesses = [];
+
+  for (let item of tracks) {
     //FUNCTION FOR TRANSFORMING METRICS FOR CARDS HERE=============================
     transformedEnergy = intForZeroToOne(item.energy);
     transformedValence = intForZeroToOne(item.valence);
@@ -167,6 +188,7 @@ function Dashboard({ props }) {
           </div>
 
           <div class="metric">
+
             <div class="stringName">{"Happiness: "}</div>
             <div class="stat">{transformedValence}</div>
           </div>
@@ -175,6 +197,8 @@ function Dashboard({ props }) {
       </div>
     );
     divRowsFor20MostListened.push(row);
+    allEnergies.push(transformedEnergy);
+    allValences.push(transformedValence);
 
     //FUNCTION FOR FINDING METRIC AVGS=============================
     //below probably goes inside function
