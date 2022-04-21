@@ -7,6 +7,7 @@ import BasicTable from "./BasicTable.js";
 import StatGauge from "./StatGauge";
 import CardList from "./CardList";
 import { Input, List, Avatar } from "antd";
+import SearchBar from "./SearchBar.js";
 
 //=======================================================================
 
@@ -279,6 +280,7 @@ function Dashboard({ props }) {
               />
             </Search>
           </Toolbar>
+          <SearchBar />
         </AppBar>
       </Box>
       <StatGauge props={trackInfo} />
