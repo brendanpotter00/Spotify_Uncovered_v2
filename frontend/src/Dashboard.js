@@ -70,8 +70,35 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function Dashboard({ props }) {
   const spotify = props.spotify;
   const [tracks, setTracks] = useState([]);
-  const [fts, setFts] = useState([]);
-  const [exp, setExp] = useState([]);
+  const [search, setSearch] = useState("");
+
+  //FUNCTION CREATION HERE===============================================
+  // valence: float 0-1
+  // loudness: float 0-60 DB
+  // energy: float 0-1
+  //https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
+
+  function intForZeroToOne(metric) {
+    return Math.round(metric * 100);
+  }
+
+  function decibalToAudioIntensity(metric) {
+    // let audioIntensity = 10 ** ((metric * -1) / 10 - 12);
+    return 10 ** ((metric * -1) / 10 - 12);
+  }
+  function intForLoudness(metric) {
+    let temp = Math.round(10 * (decibalToAudioIntensity(metric) * 10 ** 12));
+
+    if (temp >= 100) {
+      temp = 100;
+    }
+    return temp;
+  }
+
+  //function for searching tracks
+  function searchTracksFunction(query) {
+    return spotify.searchTracks(query, { limit: 1, offset: 2 });
+  }
 
   //FUNCTION CREATION HERE===============================================
   // valence: float 0-1
@@ -91,10 +118,10 @@ function Dashboard({ props }) {
   }
 
   useEffect(() => {
+    let trackList = [];
     spotify.getMyTopTracks().then(
       (tracks) => {
         let trackFts = tracks.items.map((track) => {
-          //console.log(track.album.images[0].url);
           spotify.getAudioFeaturesForTrack(track.id).then((results) => {
             let temp = {
               id: track.id,
@@ -102,26 +129,26 @@ function Dashboard({ props }) {
               artists: track.artists[0].name,
               energy: results.energy,
               loudness: results.loudness,
-              //remove acoutstic
               acousticness: results.acousticness,
               valence: results.valence,
+              dancibility: results.dancibility,
+              instrumentalness: results.instrumentalness,
               img: track.album.images[0].url,
             };
-            //console.log(temp);
+
             setTracks((tracks) => [...tracks, temp]);
             //console.log(tracks);
           });
         });
       },
-
       (err) => {
         console.log("Error:", err);
       }
     );
   }, []);
+  //console.log(tracks);
 
   //create an item then map it to a card in typescript
-  // const itemRows = [];
   const trackInfo = [];
   const avgsForBars = [];
   const divRowsFor20MostListened = [];
@@ -129,6 +156,7 @@ function Dashboard({ props }) {
   let transformedEnergy = 0;
   let transformedValence = 0;
   let transformedLoudness = 0;
+
   let allEnergies = [];
   let allValences = [];
   let allLoudnesses = [];
@@ -160,9 +188,11 @@ function Dashboard({ props }) {
           </div>
 
           <div class="metric">
-            <div class="stringName">{"Acousticness: "}</div>
+
+            <div class="stringName">{"Happiness: "}</div>
             <div class="stat">{transformedValence}</div>
           </div>
+          {/* <div class="rank">1</div> */}
         </div>
       </div>
     );
@@ -203,6 +233,8 @@ function Dashboard({ props }) {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
+                // onChange={(e) => setSearch(e.target.value)}
+                // onRequestSearch={searchTracksFunction(search)}
               />
             </Search>
           </Toolbar>
@@ -212,7 +244,6 @@ function Dashboard({ props }) {
 
       <div class="top20Table">{divRowsFor20MostListened}</div>
       {/* <BasicTable props={trackInfo} /> */}
-
       {/* <CardList /> */}
     </div>
   );

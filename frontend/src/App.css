@@ -36,8 +36,10 @@ body::-webkit-scrollbar-track {
     font-size: calc(5px + 1vmin);
   }
 }
-@media (min-width: 1500px) {
+
+/* @media (min-width: 1500px) {
   .App {
     font-size: calc(10px + 3vmin);
   }
-}
+} */
+

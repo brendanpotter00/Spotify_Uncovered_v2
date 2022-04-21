@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 15vh;
+  height: 25vh;
   padding: 1rem;
   width: 20vw;
 
@@ -16,7 +16,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 15vh;
+  height: 25vh;
   padding: 1rem;
   width: 20vw;
 
@@ -29,20 +29,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 15vh;
+  height: 25vh;
   padding: 1rem;
   width: 20vw;
-
   box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.178);
   border-radius: 1rem;
 }
 
 .bars {
   display: flex;
+  flex-direction: row;
+  justify-content:center;
+  gap: 2rem;  
   align-items: center;
-  gap: 5vw;
-  margin: 1rem;
-  outline: 1px solid green;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 .firstbar > h3 {
@@ -55,4 +56,11 @@
 
 .thirdbar > h3 {
   padding: 0.5rem;
+}
+
+.circleBar {
+  width: 20vw;
+  height: 20vh;
+  min-width: 13vw;
+  min-height: 13vh;
 }

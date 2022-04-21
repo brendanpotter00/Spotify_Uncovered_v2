@@ -82,6 +82,10 @@
   align-self: flex-end;
   padding-right: 30px;
 }
+.rank {
+  display: flex;
+  flex-direction: column;
+}
 .top20Table {
   display: flex;
   flex-direction: column;
