@@ -100,23 +100,6 @@ function Dashboard({ props }) {
     return spotify.searchTracks(query, { limit: 1, offset: 2 });
   }
 
-  //FUNCTION CREATION HERE===============================================
-  // valence: float 0-1
-  // loudness: float 0-60 DB
-  // energy: float 0-1
-  //https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
-
-  function intForZeroToOne(metric) {
-    return Math.round(metric * 10);
-  }
-  //14 loudest decibal rating???
-  function intForLoudness(metric) {
-    return Math.round((metric / -60) * 10);
-  }
-  function avgForZeroToOne() {
-    return 0;
-  }
-
   useEffect(() => {
     let trackList = [];
     spotify.getMyTopTracks().then(
@@ -188,7 +171,6 @@ function Dashboard({ props }) {
           </div>
 
           <div class="metric">
-
             <div class="stringName">{"Happiness: "}</div>
             <div class="stat">{transformedValence}</div>
           </div>
