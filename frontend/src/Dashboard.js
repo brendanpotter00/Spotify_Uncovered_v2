@@ -74,9 +74,8 @@ function Dashboard({ props }) {
   const spotify = props.spotify;
   const axios = require("axios");
   const [tracks, setTracks] = useState([]);
-  const [search, setSearch] = useState("");
-  const [searchOptions, setSearchOptions] = useState([]);
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchFts, setSearchFts] = useState([]);
 
   //FUNCTION CREATION HERE===============================================
   // valence: float 0-1
@@ -100,67 +99,37 @@ function Dashboard({ props }) {
     }
     return temp;
   }
-
-  //function for searching tracks
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
   function searchTracksFunction(query) {
     return spotify.searchTracks(query, { limit: 1, offset: 2 });
   }
-  //GITHUB SEARCH EXAMPLES=====================================================================================
-  //https://github.com/koolguru/Spotify-Search-Bar/blob/master/src/App.js
-  function getSearchResults(query) {
-    const access_token = props.token;
-    const searchQuery = query;
-    console.log("Search Query: " + searchQuery.toString());
-    const fetchURL = encodeURI(`q=${searchQuery}`);
-    fetch(`https://api.spotify.com/v1/search?${fetchURL}&type=track`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw Error("Response Not Ok");
-        }
-        console.log(response);
-        return response;
-      })
-      .then((response) => response.json())
-      .then(({ tracks }) => {
-        console.log(tracks.items[0].name);
-        const results = [];
-        tracks.items.forEach((element) => {
-          let artists = [];
-          element.artists.forEach((artist) => artists.push(artist.name));
-          results.push(
-            <List.Item key={element.uri}>
-              <List.Item.Meta
-                avatar={
-                  <Avatar
-                    shape="square"
-                    size="large"
-                    src={element.album.images[0].url}
-                  />
-                }
-                title={<p href="https://ant.design">{element.name}</p>}
-                description={artists.join(", ")}
-              />
-            </List.Item>
-          );
-        });
-        setSearchResults(results);
-      })
-      .catch((error) =>
-        this.setState({
-          searchResults: [],
-        })
-      );
-  }
 
   useEffect(() => {
-    for (let i = 0; i < 10; i++) {
-      console.log(getSearchResults("hello"));
-    }
+    const searchResults = spotify
+      .searchTracks(searchTerm, { limit: 1, offset: 2 })
+      .then((results) => {
+        let resultFts = results.tracks.items.map((track) => {
+          spotify.getAudioFeaturesForTrack(track.id).then((info) => {
+            let temp = {
+              id: track.id,
+              name: track.name,
+              artists: track.artists[0].name,
+              energy: info.energy,
+              loudness: info.loudness,
+              valence: info.valence,
+              img: track.album.images[0].url,
+            };
+            setSearchFts((searchFts) => [...searchFts, temp]);
+            //setSearchFts([...new Set((searchFts) => [...searchFts, temp])]);
+            console.log(searchFts);
+          });
+        });
+      });
+  }, [searchTerm]);
+
+  useEffect(() => {
     let trackList = [];
     spotify.getMyTopTracks().then(
       (tracks) => {
@@ -273,15 +242,16 @@ function Dashboard({ props }) {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ "aria-label": "search" }}
-                // onChange={(e) => setSearch(e.target.value)}
-                onChange={(value) => this.getSearchResults(value.target.value)}
+                onChange={handleChange}
+                value={searchTerm}
+                //onChange={(value) => this.getSearchResults(value.target.value)}
                 onSearch={(value) => console.log(value)}
                 //onRequestSearch={searchTracksFunction(search)}
               />
             </Search>
           </Toolbar>
-          <SearchBar />
         </AppBar>
+        <SearchBar props={props} />
       </Box>
       <StatGauge props={trackInfo} />
 
