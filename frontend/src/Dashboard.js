@@ -89,11 +89,14 @@ function Dashboard({ props }) {
     return 10 ** ((metric * -1) / 10 - 12);
   }
   function intForLoudness(metric) {
-    let temp = Math.round(10 * (decibalToAudioIntensity(metric) * 10 ** 12));
+    let temp = 10 * (decibalToAudioIntensity(metric) * 10 ** 12);
+    //scaling it to 1-14
+    temp = Math.round((temp / 14) * 10);
 
     if (temp >= 100) {
       temp = 100;
     }
+
     return temp;
   }
 
