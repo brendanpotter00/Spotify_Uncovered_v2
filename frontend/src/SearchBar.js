@@ -72,6 +72,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function SearchBar({ props }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchFts, setSearchFts] = useState([]);
+  const [top, setTop] = useState([]);
 
   const spotify = props.spotify;
 
@@ -79,13 +80,11 @@ function SearchBar({ props }) {
     setSearchTerm(event.target.value);
   };
 
-  function getUnique(arr, comp) {
-    const unique = arr.map((e) => e[comp]);
-  }
-
   useEffect(() => {
+    setSearchFts([]);
+
     const searchResults = spotify
-      .searchTracks(searchTerm, { limit: 1, offset: 2 })
+      .searchTracks(searchTerm, { limit: 3, offset: 1 })
       .then((results) => {
         let resultFts = results.tracks.items.map((track) => {
           spotify.getAudioFeaturesForTrack(track.id).then((info) => {
@@ -98,49 +97,73 @@ function SearchBar({ props }) {
               valence: info.valence,
               img: track.album.images[0].url,
             };
+            let ids = searchFts.map((track) => track.id);
+            let names = searchFts.map((track) => track.name);
+            let filtered = searchFts.filter(
+              ({ id }, index) => !ids.includes(id, index + 1)
+            );
             setSearchFts((searchFts) => [...searchFts, temp]);
-            //=============================================================================
-            // searchFts;
-            // console.log("HERERERE" + JSON.stringify(searchFts));
-            // searchFts = searchFts.filter((searchFt, index) => {
-            //   const temp2 = JSON.stringify(value);
-            // });
 
-            var stringObj = JSON.stringify(searchFts);
-            // var clean = stringObj.filter(
-            //   (stringObj, index, self) =>
-            //     index === self.findIndex((t) => t.id === stringObj.id)
-            // );
+            // if (!ids.includes(temp.id)) {
+            //   setSearchFts((searchFts) => [...searchFts, temp]);
+            // }
 
-            // console.log(clean);
+            if (filtered.length >= 8) {
+              // setSearchFts(top3);
+              let top3 = filtered.slice(-3);
+              let total = searchFts;
+              //setSearchFts(total.slice(-3));
+              //console.log("INSIDE " + searchFts.map((t) => t.name));
 
-            const uniqueArray = searchFts.filter((value, index) => {
-              const _value = JSON.stringify(value);
-              return (
-                index ===
-                searchFts.findIndex((obj) => {
-                  return JSON.stringify(obj) === _value;
-                })
-              );
-            });
-            //setSearchFts(uniqueArray);
+              console.log("call-------------------------------");
+            }
 
-            // setSearchFts(
-            //   (searchFts = searchFts.filter(
-            //     (value, index, self) =>
-            //       index === self.findIndex((t) => t.id === value.id)
-            //   ))
-            // );
+            // if (filtered.length >= 3) {
+            //   setSearchFts(filtered);
+            // }
+            // let top3 = searchFts.slice(-3);
+            // console.log(top3);
 
-            //WORKS
-            //setSearchFts((searchFts) => [...searchFts, temp]);
-            //setSearchFts([...new Set((searchFts) => [...searchFts, temp])]);
-            //=============================================================================
             console.log(searchFts);
           });
         });
       });
   }, [searchTerm]);
+
+  let html = [];
+
+  for (let track of searchFts) {
+    const ret = (
+      <div class="top20Row">
+        <div class="top20Img">
+          <img src={track.img} alt={"Song Cover for" + track.name} />
+        </div>
+        <div class="songInfo">
+          <div class="songName">{track.name}</div>
+          <div class="songArtist">{track.artists}</div>
+        </div>
+
+        <div class="songMetrics">
+          <div class="metric">
+            <div class="stringName">{"Energy: "}</div>
+            <div class="stat">{track.energy}</div>
+          </div>
+
+          <div class="metric">
+            <div class="stringName">{"Loudness: "}</div>
+            <div class="stat">{track.loudness}</div>
+          </div>
+
+          <div class="metric">
+            <div class="stringName">{"Happiness: "}</div>
+            <div class="stat">{track.valence}</div>
+          </div>
+          {/* <div class="rank">1</div> */}
+        </div>
+      </div>
+    );
+    html.push(ret);
+  }
 
   return (
     <div>
@@ -164,12 +187,15 @@ function SearchBar({ props }) {
               onChange={handleChange}
               value={searchTerm}
               //onChange={(value) => this.getSearchResults(value.target.value)}
-              onSearch={(value) => console.log(value)}
+              //onSearch={(value) => console.log(value)}
               //onRequestSearch={searchTracksFunction(search)}
             />
           </Search>
         </Toolbar>
       </AppBar>
+      <div className="searchResultsContainer">
+        <div class="topResults">{html}</div>
+      </div>
     </div>
   );
 }
