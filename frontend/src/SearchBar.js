@@ -7,7 +7,6 @@ import BasicTable from "./BasicTable.js";
 import StatGauge from "./StatGauge";
 import CardList from "./CardList";
 import { Input, List, Avatar } from "antd";
-import SearchBar from "./SearchBar.js";
 
 //=======================================================================
 
@@ -70,130 +69,135 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-function Dashboard({ props }) {
+function SearchBar({ props }) {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchFts, setSearchFts] = useState([]);
+  const [top, setTop] = useState([]);
+
   const spotify = props.spotify;
-  const [tracks, setTracks] = useState([]);
 
-  //FUNCTION CREATION HERE===============================================
-  // valence: float 0-1
-  // loudness: float 0-60 DB
-  // energy: float 0-1
-  //https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
-
-  function intForZeroToOne(metric) {
-    return Math.round(metric * 100);
-  }
-
-  function decibalToAudioIntensity(metric) {
-    // let audioIntensity = 10 ** ((metric * -1) / 10 - 12);
-    return 10 ** ((metric * -1) / 10 - 12);
-  }
-  function intForLoudness(metric) {
-    let temp = Math.round(10 * (decibalToAudioIntensity(metric) * 10 ** 12));
-
-    if (temp >= 100) {
-      temp = 100;
-    }
-    return temp;
-  }
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
   useEffect(() => {
-    let trackList = [];
-    spotify.getMyTopTracks().then(
-      (tracks) => {
-        let trackFts = tracks.items.map((track) => {
-          spotify.getAudioFeaturesForTrack(track.id).then((results) => {
+    setSearchFts([]);
+
+    const searchResults = spotify
+      .searchTracks(searchTerm, { limit: 3, offset: 1 })
+      .then((results) => {
+        let resultFts = results.tracks.items.map((track) => {
+          spotify.getAudioFeaturesForTrack(track.id).then((info) => {
             let temp = {
               id: track.id,
               name: track.name,
               artists: track.artists[0].name,
-              energy: results.energy,
-              loudness: results.loudness,
-              acousticness: results.acousticness,
-              valence: results.valence,
-              dancibility: results.dancibility,
-              instrumentalness: results.instrumentalness,
+              energy: info.energy,
+              loudness: info.loudness,
+              valence: info.valence,
               img: track.album.images[0].url,
             };
+            let ids = searchFts.map((track) => track.id);
+            let names = searchFts.map((track) => track.name);
+            let filtered = searchFts.filter(
+              ({ id }, index) => !ids.includes(id, index + 1)
+            );
+            setSearchFts((searchFts) => [...searchFts, temp]);
 
-            setTracks((tracks) => [...tracks, temp]);
+            // if (!ids.includes(temp.id)) {
+            //   setSearchFts((searchFts) => [...searchFts, temp]);
+            // }
+
+            if (filtered.length >= 8) {
+              // setSearchFts(top3);
+              let top3 = filtered.slice(-3);
+              let total = searchFts;
+              //setSearchFts(total.slice(-3));
+              //console.log("INSIDE " + searchFts.map((t) => t.name));
+
+              console.log("call-------------------------------");
+            }
+
+            // if (filtered.length >= 3) {
+            //   setSearchFts(filtered);
+            // }
+            // let top3 = searchFts.slice(-3);
+            // console.log(top3);
+
+            console.log(searchFts);
           });
         });
-      },
-      (err) => {
-        console.log("Error:", err);
-      }
-    );
-  }, []);
+      });
+  }, [searchTerm]);
 
-  //create an item then map it to a card in typescript
-  const trackInfo = [];
-  const divRowsFor20MostListened = [];
-  //variables for 1-10 metric transformation===================================
-  let transformedEnergy = 0;
-  let transformedValence = 0;
-  let transformedLoudness = 0;
+  let html = [];
 
-  for (let item of tracks) {
-    //FUNCTION FOR TRANSFORMING METRICS FOR CARDS HERE=============================
-    transformedEnergy = intForZeroToOne(item.energy);
-    transformedValence = intForZeroToOne(item.valence);
-    transformedLoudness = intForLoudness(item.loudness);
-    const row = (
+  for (let track of searchFts) {
+    const ret = (
       <div class="top20Row">
         <div class="top20Img">
-          <img src={item.img} alt={"Song Cover for" + item.name} />
+          <img src={track.img} alt={"Song Cover for" + track.name} />
         </div>
         <div class="songInfo">
-          <div class="songName">{item.name}</div>
-          <div class="songArtist">{item.artists}</div>
+          <div class="songName">{track.name}</div>
+          <div class="songArtist">{track.artists}</div>
         </div>
 
         <div class="songMetrics">
           <div class="metric">
             <div class="stringName">{"Energy: "}</div>
-            <div class="stat">{transformedEnergy}</div>
+            <div class="stat">{track.energy}</div>
           </div>
 
           <div class="metric">
             <div class="stringName">{"Loudness: "}</div>
-            <div class="stat">{transformedLoudness}</div>
+            <div class="stat">{track.loudness}</div>
           </div>
 
           <div class="metric">
             <div class="stringName">{"Happiness: "}</div>
-            <div class="stat">{transformedValence}</div>
+            <div class="stat">{track.valence}</div>
           </div>
           {/* <div class="rank">1</div> */}
         </div>
       </div>
     );
-    divRowsFor20MostListened.push(row);
-
-    //FUNCTION FOR FINDING METRIC AVGS=============================
-    //below probably goes inside function
-    let trackInfoTemp = {
-      name: item.name,
-      artists: item.artists,
-      energy: transformedEnergy,
-      loudness: transformedLoudness,
-      valence: transformedValence,
-      img: item.img,
-    };
-    trackInfo.push(trackInfoTemp);
+    html.push(ret);
   }
 
   return (
-    <div className="dashboard_container">
-      <Box sx={{ flexGrow: 1 }}>
-        <SearchBar props={props} />
-      </Box>
-      <StatGauge props={trackInfo} />
-      <div class="top20Table">{divRowsFor20MostListened}</div>
-      {/* <BasicTable props={trackInfo} /> */}
-      {/* <CardList /> */}
+    <div>
+      <AppBar position="static">
+        <Toolbar>
+          <Typography
+            variant="h6"
+            noWrap
+            component="div"
+            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+          >
+            spotify uncovered
+          </Typography>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+              onChange={handleChange}
+              value={searchTerm}
+              //onChange={(value) => this.getSearchResults(value.target.value)}
+              //onSearch={(value) => console.log(value)}
+              //onRequestSearch={searchTracksFunction(search)}
+            />
+          </Search>
+        </Toolbar>
+      </AppBar>
+      <div className="searchResultsContainer">
+        <div class="topResults">{html}</div>
+      </div>
     </div>
   );
 }
 
-export default Dashboard;
+export default SearchBar;
