@@ -70,68 +70,77 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function SearchBar({ props }) {
-  //console.log(props.token);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchFts, setSearchFts] = useState([]);
 
-  //   useEffect(() => {
-  //     for (let i = 0; i < 10; i++) {
-  //       console.log(getSearchResults("hello"));
-  //     }
-  //   }, []);
+  const spotify = props.spotify;
 
-  //GITHUB SEARCH EXAMPLES=====================================================================================
-  //https://github.com/koolguru/Spotify-Search-Bar/blob/master/src/App.js
-  function getSearchResults(query) {
-    const [searchOptions, setSearchOptions] = useState([]);
-    const [searchResults, setSearchResults] = useState([]);
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
 
-    const access_token = props.token;
-    const searchQuery = query;
-    console.log("Search Query: " + searchQuery.toString());
-    const fetchURL = encodeURI(`q=${searchQuery}`);
-    fetch(`https://api.spotify.com/v1/search?${fetchURL}&type=track`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw Error("Response Not Ok");
-        }
-        console.log(response);
-        return response;
-      })
-      .then((response) => response.json())
-      .then(({ tracks }) => {
-        console.log(tracks.items[0].name);
-        const results = [];
-        tracks.items.forEach((element) => {
-          let artists = [];
-          element.artists.forEach((artist) => artists.push(artist.name));
-          results.push(
-            <List.Item key={element.uri}>
-              <List.Item.Meta
-                avatar={
-                  <Avatar
-                    shape="square"
-                    size="large"
-                    src={element.album.images[0].url}
-                  />
-                }
-                title={<p href="https://ant.design">{element.name}</p>}
-                description={artists.join(", ")}
-              />
-            </List.Item>
-          );
-        });
-        setSearchResults(results);
-      })
-      .catch((error) =>
-        this.setState({
-          searchResults: [],
-        })
-      );
+  function getUnique(arr, comp) {
+    const unique = arr.map((e) => e[comp]);
   }
+
+  useEffect(() => {
+    const searchResults = spotify
+      .searchTracks(searchTerm, { limit: 1, offset: 2 })
+      .then((results) => {
+        let resultFts = results.tracks.items.map((track) => {
+          spotify.getAudioFeaturesForTrack(track.id).then((info) => {
+            let temp = {
+              id: track.id,
+              name: track.name,
+              artists: track.artists[0].name,
+              energy: info.energy,
+              loudness: info.loudness,
+              valence: info.valence,
+              img: track.album.images[0].url,
+            };
+            setSearchFts((searchFts) => [...searchFts, temp]);
+            //=============================================================================
+            // searchFts;
+            // console.log("HERERERE" + JSON.stringify(searchFts));
+            // searchFts = searchFts.filter((searchFt, index) => {
+            //   const temp2 = JSON.stringify(value);
+            // });
+
+            var stringObj = JSON.stringify(searchFts);
+            // var clean = stringObj.filter(
+            //   (stringObj, index, self) =>
+            //     index === self.findIndex((t) => t.id === stringObj.id)
+            // );
+
+            // console.log(clean);
+
+            const uniqueArray = searchFts.filter((value, index) => {
+              const _value = JSON.stringify(value);
+              return (
+                index ===
+                searchFts.findIndex((obj) => {
+                  return JSON.stringify(obj) === _value;
+                })
+              );
+            });
+            //setSearchFts(uniqueArray);
+
+            // setSearchFts(
+            //   (searchFts = searchFts.filter(
+            //     (value, index, self) =>
+            //       index === self.findIndex((t) => t.id === value.id)
+            //   ))
+            // );
+
+            //WORKS
+            //setSearchFts((searchFts) => [...searchFts, temp]);
+            //setSearchFts([...new Set((searchFts) => [...searchFts, temp])]);
+            //=============================================================================
+            console.log(searchFts);
+          });
+        });
+      });
+  }, [searchTerm]);
 
   return (
     <div>
@@ -152,8 +161,9 @@ function SearchBar({ props }) {
             <StyledInputBase
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
-              // onChange={(e) => setSearch(e.target.value)}
-              onChange={(value) => this.getSearchResults(value.target.value)}
+              onChange={handleChange}
+              value={searchTerm}
+              //onChange={(value) => this.getSearchResults(value.target.value)}
               onSearch={(value) => console.log(value)}
               //onRequestSearch={searchTracksFunction(search)}
             />
