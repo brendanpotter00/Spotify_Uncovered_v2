@@ -6,12 +6,14 @@
   flex-direction: row;
   /* background-color: #204064; */
   border-radius: 100px;
+  flex-basis: auto;
   box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.329);
-  padding: 10px 10px 10px 10px;
+  padding: 2rem;
 }
-@media (max-width: 450px) {
+@media (max-width: 600px) {
   .top20Row {
     flex-direction: column;
+    align-items: stretch;
   }
 }
 /* > means must be a direct decendant of top20Row and * means everything */
@@ -19,25 +21,28 @@
   flex-grow: 1;
   align-self: center;
 }
-@media (max-width: 450px) {
-  /* .top20Img {
-    max-width: 50%;
-  } */
+@media (max-width: 600px) {
   .top20Row > * {
     max-width: 50%;
   }
 }
-@media (min-width: 451px) {
+@media (min-width: 601px) {
+  /* .top20Row {
+    max-height: 170px;
+  } */
   .top20Img {
     max-width: 20%;
+  }
+  .stat {
+    align-self: flex-end;
   }
 }
 
 .top20Img {
   display: flex;
   justify-content: center;
-  padding: 10px 10px 10px 10px;
-  align-self: center;
+  /* max-height: calc(100% - 2rem); */
+  padding: 1rem;
 }
 .top20Img img {
   border-radius: 50%;
@@ -74,24 +79,13 @@
 .songArtist {
   color: white;
 }
-.stringName {
-  align-self: flex-start;
+.statName {
+  align-self: center;
 }
 .stat {
-  align-self: flex-end;
   padding-right: 30px;
 }
 .rank {
   display: flex;
   flex-direction: column;
-}
-.top20Table {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  /* align-items: center; */
-  justify-content: space-evenly;
-  row-gap: 20px;
-
-  /* max-width: 90%; */
 }

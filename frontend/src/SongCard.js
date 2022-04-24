@@ -19,27 +19,39 @@ function SongCard({ trackInfo }) {
         </div>
         <div class="songInfo">
           <div class="songName">
-            <Typography variant="h5">{trackInfo.name}</Typography>
+            <Typography variant="h4">{trackInfo.name}</Typography>
           </div>
           <div class="songArtist">
-            <Typography variant="h6">{trackInfo.artists}</Typography>
+            <Typography variant="h5">{trackInfo.artists}</Typography>
           </div>
         </div>
 
         <div class="songMetrics">
           <div class="metric">
-            <div class="stringName">{"Energy: "}</div>
-            <div class="stat">{trackInfo.energy}</div>
+            <div class="statName">
+              <Typography variant="h5">{"Energy: "}</Typography>
+            </div>
+            <div class="stat">
+              <Typography variant="h5">{trackInfo.energy}</Typography>
+            </div>
           </div>
 
           <div class="metric">
-            <div class="stringName">{"Loudness: "}</div>
-            <div class="stat">{trackInfo.loudness}</div>
+            <div class="statName">
+              <Typography variant="h5">{"Loudness: "}</Typography>
+            </div>
+            <div class="stat">
+              <Typography variant="h5">{trackInfo.loudness}</Typography>
+            </div>
           </div>
 
           <div class="metric">
-            <div class="stringName">{"Happiness: "}</div>
-            <div class="stat">{trackInfo.valence}</div>
+            <div class="statName">
+              <Typography variant="h5">{"Happiness: "}</Typography>
+            </div>
+            <div class="stat">
+              <Typography variant="h5">{trackInfo.valence}</Typography>
+            </div>
           </div>
           {/* <div class="rank">1</div> */}
         </div>
