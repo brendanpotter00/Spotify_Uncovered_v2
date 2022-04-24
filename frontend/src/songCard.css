@@ -1,0 +1,97 @@
+.top20Row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  background-color: #424242;
+  flex-direction: row;
+  /* background-color: #204064; */
+  border-radius: 100px;
+  box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.329);
+  padding: 10px 10px 10px 10px;
+}
+@media (max-width: 450px) {
+  .top20Row {
+    flex-direction: column;
+  }
+}
+/* > means must be a direct decendant of top20Row and * means everything */
+.top20Row > * {
+  flex-grow: 1;
+  align-self: center;
+}
+@media (max-width: 450px) {
+  /* .top20Img {
+    max-width: 50%;
+  } */
+  .top20Row > * {
+    max-width: 50%;
+  }
+}
+@media (min-width: 451px) {
+  .top20Img {
+    max-width: 20%;
+  }
+}
+
+.top20Img {
+  display: flex;
+  justify-content: center;
+  padding: 10px 10px 10px 10px;
+  align-self: center;
+}
+.top20Img img {
+  border-radius: 50%;
+  max-width: 100%;
+  max-height: 100%;
+  box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.087);
+}
+.songInfo {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+}
+
+.songMetrics {
+  /* flex-basis: auto; */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  color: white;
+}
+
+.metric {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.songName {
+  color: #d85c27;
+}
+.songArtist {
+  color: white;
+}
+.stringName {
+  align-self: flex-start;
+}
+.stat {
+  align-self: flex-end;
+  padding-right: 30px;
+}
+.rank {
+  display: flex;
+  flex-direction: column;
+}
+.top20Table {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  /* align-items: center; */
+  justify-content: space-evenly;
+  row-gap: 20px;
+
+  /* max-width: 90%; */
+}

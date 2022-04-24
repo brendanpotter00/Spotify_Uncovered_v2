@@ -13,7 +13,7 @@ secondary light = #587ca5 */
 
   background-color: #303030;
   font-family: "Roboto", sans-serif;
-  font-size: calc(10px + 2vmin);
+  /* font-size: calc(10px + 2vmin); */
   color: white;
   /* overflow-x: hidden; */
 }
@@ -31,15 +31,14 @@ body::-webkit-scrollbar-track {
   background-color: #0f243b;
 }
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .App {
     font-size: calc(5px + 1vmin);
   }
-}
+} */
 
 /* @media (min-width: 1500px) {
   .App {
     font-size: calc(10px + 3vmin);
   }
 } */
-

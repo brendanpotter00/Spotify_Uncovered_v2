@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState, Component } from "react";
 import axios from "axios";
 import { TrackAnalysis, UserTracks } from "react-spotify-api";
@@ -8,15 +9,7 @@ import StatGauge from "./StatGauge";
 import CardList from "./CardList";
 //import { Input, List, Avatar } from "antd";
 
-//=======================================================================
 
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -68,6 +61,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
 
 function SearchBar({ props }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -167,6 +161,7 @@ function SearchBar({ props }) {
 
   return (
     <div>
+
       <AppBar position="static">
         <Toolbar>
           <Typography
@@ -175,13 +170,16 @@ function SearchBar({ props }) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
+
             spotify uncovered
+
           </Typography>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
+
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
               onChange={handleChange}
@@ -193,6 +191,7 @@ function SearchBar({ props }) {
           </Search>
         </Toolbar>
       </AppBar>
+
       <div className="searchResultsContainer">
         <div class="topResults">{html}</div>
       </div>
