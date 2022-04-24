@@ -16,3 +16,23 @@
   justify-content: flex-start;
   row-gap: 20px;
 }
+.searchResultsContainer {
+  /* outline: 1px solid red; */
+  display: inherit;
+  /* grid-template-columns: repeat(auto-fit, minmax(60rem, 90rem)); */
+  grid-gap: 2rem;
+  justify-content: center;
+  padding: 1rem;
+  width: 95%;
+  height: 50%;
+}
+.topResults {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+
+  row-gap: 20px;
+
+
+  /* max-width: 90%; */
+}

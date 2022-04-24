@@ -46,12 +46,9 @@ function App() {
       spotify.setAccessToken(_token);
       //grabbing the user
       spotify.getMe().then((user) => {
-        //console.log("USER", user);
         setUser(user);
       });
     }
-
-    //console.log("i have a token", token);
   }, []);
 
   let props = {
