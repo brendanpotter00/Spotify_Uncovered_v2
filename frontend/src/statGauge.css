@@ -1,3 +1,6 @@
+.bars {
+  padding: 2rem;
+}
 .firstbar {
   display: inherit;
   flex-direction: column;
@@ -39,8 +42,8 @@
 .bars {
   display: flex;
   flex-direction: row;
-  justify-content:center;
-  gap: 2rem;  
+  justify-content: center;
+  gap: 2rem;
   align-items: center;
   margin-left: 1rem;
   margin-right: 1rem;
