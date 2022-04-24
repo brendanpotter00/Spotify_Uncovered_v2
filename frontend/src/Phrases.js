@@ -85,8 +85,7 @@ function Phrases({ props }) {
         <div className="phrase">{determinePhrase()}</div>
       ) : (
         <button className="phraseButton" onClick={() => handleChange()}>
-          {" "}
-          phrase
+          analyze
         </button>
       )}
       {/* {token ? <Dashboard props={props} /> : <Login />} */}

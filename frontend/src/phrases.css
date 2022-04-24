@@ -3,7 +3,6 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding-top: 1rem;
 }
 .phrase-container {
   display: flex;
@@ -12,96 +11,87 @@
   align-items: center;
   margin-top: 2em;
 }
+.phraseButton {
+}
 .phraseButton,
 .phraseButton::after {
   width: 4em;
   height: 2em;
-  font-size: 36px;
-
   background: linear-gradient(45deg, transparent 5%, #ff7301 5%);
   border: 0;
   color: #fff;
   letter-spacing: 3px;
-  line-height: 88px;
-  box-shadow: 6px 0px 0px #1a1ca1;
+
+  box-shadow: 6px 0px 0px #cc620c;
   outline: transparent;
   position: relative;
 }
 
 .phraseButton::after {
-  --slice-0: inset(50% 50% 50% 50%);
-  --slice-1: inset(80% -6px 0 0);
-  --slice-2: inset(50% -6px 30% 0);
-  --slice-3: inset(10% -6px 85% 0);
-  --slice-4: inset(40% -6px 43% 0);
-  --slice-5: inset(80% -6px 5% 0);
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
 
-  content: "unlock";
-  display: block;
+.phraseButton {
+  width: 5em;
+  height: 2em;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: "Staatliches";
+  letter-spacing: 0.3rem;
+  background: #da6027;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
+  transition: 500ms;
+  border-radius: 30%;
+}
+
+.phraseButton:after {
+  content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    45deg,
-    transparent 3%,
-    #00e6f6 3%,
-    #00e6f6 5%,
-    #ff013c 5%
-  );
-  text-shadow: -3px -3px 0px #f8f005, 3px 3px 0px #00e6f6;
-  clip-path: var(--slice-0);
+  transform: translateX(-55px) translateY(-40px);
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: 0px 0px 50px transparent;
+  transition: 500ms;
 }
 
-.phraseButton:hover::after {
-  animation: 1s glitch;
-  animation-timing-function: steps(2, end);
+.phraseButton:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.4);
 }
 
-@keyframes glitch {
-  0% {
-    clip-path: var(--slice-1);
-    transform: translate(-20px, -10px);
-  }
-  10% {
-    clip-path: var(--slice-3);
-    transform: translate(10px, 10px);
-  }
-  20% {
-    clip-path: var(--slice-1);
-    transform: translate(-10px, 10px);
-  }
-  30% {
-    clip-path: var(--slice-3);
-    transform: translate(0px, 5px);
-  }
-  40% {
-    clip-path: var(--slice-2);
-    transform: translate(-5px, 0px);
+.phraseButton:hover:after {
+  background: white;
+  box-shadow: 0px 0px 20px #ffc421, 0px 0px 30px #ffc421,
+    inset 0px 0px 10px #ffc421;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  25% {
+    transform: translateX(-25px) translateY(-35px);
+    width: 15px;
+    height: 15px;
   }
   50% {
-    clip-path: var(--slice-3);
-    transform: translate(5px, 0px);
+    transform: translateX(-55px) translateY(-30px);
+    width: 5px;
+    height: 5px;
   }
-  60% {
-    clip-path: var(--slice-4);
-    transform: translate(5px, 10px);
+  75% {
+    transform: translateX(-85px) translateY(-35px);
+    width: 15px;
+    height: 15px;
   }
-  70% {
-    clip-path: var(--slice-2);
-    transform: translate(-10px, 10px);
-  }
-  80% {
-    clip-path: var(--slice-5);
-    transform: translate(20px, -10px);
-  }
-  90% {
-    clip-path: var(--slice-1);
-    transform: translate(-10px, 0px);
-  }
-  100% {
-    clip-path: var(--slice-1);
-    transform: translate(0);
-  }
+}
+
+.phraseButton:focus {
+  outline: none;
 }
