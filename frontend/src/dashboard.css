@@ -10,6 +10,11 @@
 
 .top20Table {
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  row-gap: 20px;
 }
 .searchResultsContainer {
   /* outline: 1px solid red; */
