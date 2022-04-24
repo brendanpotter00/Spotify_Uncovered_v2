@@ -1,10 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Component } from "react";
 import axios from "axios";
 import { TrackAnalysis, UserTracks } from "react-spotify-api";
 import "./dashboard.css";
 import SongCard from "./SongCard.js";
 import SearchBar from "./SearchBar.js";
 import StatGauge from "./StatGauge";
+
+import CardList from "./CardList";
+//import { Input, List, Avatar } from "antd";
+import SearchBar from "./SearchBar.js";
+
+
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -18,7 +24,6 @@ import Stack from "@mui/material/Stack";
 function Dashboard({ props }) {
   const spotify = props.spotify;
   const [tracks, setTracks] = useState([]);
-  const [search, setSearch] = useState("");
 
   //FUNCTION CREATION HERE===============================================
   // valence: float 0-1
@@ -35,17 +40,15 @@ function Dashboard({ props }) {
     return 10 ** ((metric * -1) / 10 - 12);
   }
   function intForLoudness(metric) {
-    let temp = Math.round(10 * (decibalToAudioIntensity(metric) * 10 ** 12));
+    let temp = 10 * (decibalToAudioIntensity(metric) * 10 ** 12);
+    //scaling it to 1-14
+    temp = Math.round((temp / 14) * 10);
 
     if (temp >= 100) {
       temp = 100;
     }
-    return temp;
-  }
 
-  //function for searching tracks
-  function searchTracksFunction(query) {
-    return spotify.searchTracks(query, { limit: 1, offset: 2 });
+    return temp;
   }
 
   useEffect(() => {
@@ -68,7 +71,6 @@ function Dashboard({ props }) {
             };
 
             setTracks((tracks) => [...tracks, temp]);
-            //console.log(tracks);
           });
         });
       },
@@ -77,20 +79,14 @@ function Dashboard({ props }) {
       }
     );
   }, []);
-  //console.log(tracks);
 
   //create an item then map it to a card in typescript
   const trackInfo = [];
-  const avgsForBars = [];
   const divRowsFor20MostListened = [];
   //variables for 1-10 metric transformation===================================
   let transformedEnergy = 0;
   let transformedValence = 0;
   let transformedLoudness = 0;
-
-  let allEnergies = [];
-  let allValences = [];
-  let allLoudnesses = [];
 
   for (let item of tracks) {
     //FUNCTION FOR TRANSFORMING METRICS FOR CARDS HERE=============================
@@ -101,6 +97,7 @@ function Dashboard({ props }) {
     // divRowsFor20MostListened.push(row);
     allEnergies.push(transformedEnergy);
     allValences.push(transformedValence);
+
 
     //FUNCTION FOR FINDING METRIC AVGS=============================
     //below probably goes inside function
@@ -128,6 +125,7 @@ function Dashboard({ props }) {
           </Stack>
         </div>
       </Box>
+
     </div>
   );
 }

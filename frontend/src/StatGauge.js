@@ -3,13 +3,10 @@ import { CircularProgressbar } from "react-circular-progressbar";
 import { buildStyles } from "react-circular-progressbar";
 import "./statGauge.css";
 import "react-circular-progressbar/dist/styles.css";
+import Phrases from "./Phrases";
 
 const percentage = 66;
 function StatGauge({ props }) {
-
-  //props[0].valence;
-  //console.log(props[0].valence);
-
   function avgForMetrics(metrics) {
     return Math.round(metrics.reduce((a, b) => a + b, 0) / metrics.length);
   }
@@ -29,71 +26,78 @@ function StatGauge({ props }) {
   let valenceAvg = avgForMetrics(allValences);
   let loudnessAvg = avgForMetrics(allLoudnesses);
 
+  let phraseProps = {
+    energy: energyAvg,
+    valence: valenceAvg,
+    loudness: loudnessAvg
+  }
+
   return (
-    <div className="bars">
-      <div className="firstbar">
-        <CircularProgressbar
-          className="circleBar"
+    <div>
+      <div className="bars">
+        <div className="firstbar">
+          <CircularProgressbar
+            className="circleBar"
+            value={energyAvg}
+            text={`${energyAvg}`}
+            background
+            backgroundPadding={6}
+            styles={buildStyles({
+              rotation: 1,
+              strokeLinecap: "round",
+              textSize: "1.8rem",
+              pathTransitionDuration: 0.5,
+              backgroundColor: "#FDA766",
+              textColor: "#fff",
+              pathColor: "#fff",
+              trailColor: "transparent",
+            })}
+          />
+          <h3> Energy </h3>
+        </div>
+        <div className="secondbar">
+          <CircularProgressbar
+            className="circleBar"
+            value={valenceAvg}
+            text={`${valenceAvg}`}
+            background
+            backgroundPadding={6}
+            styles={buildStyles({
+              rotation: 1,
+              strokeLinecap: "round",
+              textSize: "1.8rem",
+              pathTransitionDuration: 0.5,
+              backgroundColor: "#FD9346",
+              textColor: "#fff",
+              pathColor: "#fff",
+              trailColor: "transparent",
+            })}
+          />
 
-          value={energyAvg}
-          text={`${energyAvg}`}
-          background
-          backgroundPadding={6}
-          styles={buildStyles({
-            rotation: 1,
-            strokeLinecap: "round",
-            textSize: "1.8rem",
-            pathTransitionDuration: 0.5,
-            backgroundColor: "#FDA766",
-            textColor: "#fff",
-            pathColor: "#fff",
-            trailColor: "transparent",
-          })}
-        />
-        <h3> Energy </h3>
+          <h3> Happiness </h3>
+        </div>
+        <div className="thirdbar">
+          <CircularProgressbar
+            className="circleBar"
+            value={loudnessAvg}
+            text={`${loudnessAvg}`}
+            background
+            backgroundPadding={6}
+            styles={buildStyles({
+              rotation: 1,
+              strokeLinecap: "round",
+              textSize: "1.8rem",
+              pathTransitionDuration: 0.5,
+              backgroundColor: "#FD7F2C",
+              textColor: "#fff",
+              pathColor: "#fff",
+              trailColor: "transparent",
+            })}
+          />
+          <h3> Loudness </h3>
+        </div>
       </div>
-      <div className="secondbar">
-        <CircularProgressbar
-          className="circleBar"
-          value={valenceAvg}
-          text={`${valenceAvg}`}
-          background
-          backgroundPadding={6}
-          styles={buildStyles({
-            rotation: 1,
-            strokeLinecap: "round",
-            textSize: "1.8rem",
-            pathTransitionDuration: 0.5,
-            backgroundColor: "#FD9346",
-            textColor: "#fff",
-            pathColor: "#fff",
-            trailColor: "transparent",
-          })}
-        />
-
-        <h3> Happiness </h3>
-
-      </div>
-      <div className="thirdbar">
-        <CircularProgressbar
-          className="circleBar"
-          value={loudnessAvg}
-          text={`${loudnessAvg}`}
-          background
-          backgroundPadding={6}
-          styles={buildStyles({
-            rotation: 1,
-            strokeLinecap: "round",
-            textSize: "1.8rem",
-            pathTransitionDuration: 0.5,
-            backgroundColor: "#FD7F2C",
-            textColor: "#fff",
-            pathColor: "#fff",
-            trailColor: "transparent",
-          })}
-        />
-        <h3> Loudness </h3>
-      </div>
+      <Phrases props={phraseProps} />
     </div>
   );
 }
