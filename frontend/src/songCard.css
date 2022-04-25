@@ -55,6 +55,7 @@
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-evenly;
+  padding: 1em;
 }
 
 .songMetrics {
@@ -64,6 +65,7 @@
   flex-wrap: nowrap;
   justify-content: center;
   color: white;
+  padding: 0.5em;
 }
 
 .metric {
