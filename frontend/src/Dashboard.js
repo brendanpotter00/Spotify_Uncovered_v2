@@ -3,13 +3,12 @@ import axios from "axios";
 import { TrackAnalysis, UserTracks } from "react-spotify-api";
 import "./dashboard.css";
 import SongCard from "./SongCard.js";
-import SearchBar from "./SearchBar.js";
+
 import StatGauge from "./StatGauge";
 
 import CardList from "./CardList";
 //import { Input, List, Avatar } from "antd";
 import SearchBar from "./SearchBar.js";
-
 
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -87,6 +86,8 @@ function Dashboard({ props }) {
   let transformedEnergy = 0;
   let transformedValence = 0;
   let transformedLoudness = 0;
+  let allEnergies = [];
+  let allValences = [];
 
   for (let item of tracks) {
     //FUNCTION FOR TRANSFORMING METRICS FOR CARDS HERE=============================
@@ -97,7 +98,6 @@ function Dashboard({ props }) {
     // divRowsFor20MostListened.push(row);
     allEnergies.push(transformedEnergy);
     allValences.push(transformedValence);
-
 
     //FUNCTION FOR FINDING METRIC AVGS=============================
     //below probably goes inside function
@@ -114,7 +114,7 @@ function Dashboard({ props }) {
 
   return (
     <div className="dashboard_container">
-      <SearchBar></SearchBar>
+      <SearchBar props={props}></SearchBar>
       <StatGauge props={trackInfo} />
       <Box sx={{ width: "100%" }}>
         <div class="top20Table">
@@ -125,7 +125,6 @@ function Dashboard({ props }) {
           </Stack>
         </div>
       </Box>
-
     </div>
   );
 }

@@ -1,14 +1,12 @@
-
 import React, { useEffect, useState, Component } from "react";
 import axios from "axios";
 import { TrackAnalysis, UserTracks } from "react-spotify-api";
 import "./dashboard.css";
-import Card from "./Card.js";
+
 import BasicTable from "./BasicTable.js";
 import StatGauge from "./StatGauge";
 import CardList from "./CardList";
 //import { Input, List, Avatar } from "antd";
-
 
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
@@ -61,7 +59,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
 
 function SearchBar({ props }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -161,7 +158,6 @@ function SearchBar({ props }) {
 
   return (
     <div>
-
       <AppBar position="static">
         <Toolbar>
           <Typography
@@ -170,16 +166,13 @@ function SearchBar({ props }) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
-
             spotify uncovered
-
           </Typography>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-
               placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
               onChange={handleChange}
