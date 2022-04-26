@@ -1,22 +1,10 @@
 import React, { useEffect, useState, useRef, Component } from "react";
-import { debounce } from "debounce-promise";
-import axios from "axios";
-import { TrackAnalysis, UserTracks } from "react-spotify-api";
 import "./dashboard.css";
-
-import BasicTable from "./BasicTable.js";
-import StatGauge from "./StatGauge";
-import CardList from "./CardList";
-//import { Input, List, Avatar } from "antd";
-
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 
 const Search = styled("div")(({ theme }) => ({
@@ -60,11 +48,22 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+function calculateDance(tempo,energy,happy) 
+{ 
+  energy = Math.round(energy * 100);
+  happy = Math.round(happy * 100); 
+  let diff =  Math.abs(130 - tempo); 
+  let n =  (130 + tempo) / 2 ;
+  let percentDiff = (diff/n) * 100; 
+
+  let scale = ((100) - (percentDiff )) * (100 - 1) / ((100)- 1) + 1 ;  
+  return Math.round(((1.1*energy) + ( .75 * scale) +(.90 * happy)) / 2.75); 
+
+}
 
 function SearchBar({ props }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchFts, setSearchFts] = useState([]);
-  const [top, setTop] = useState([]);
   const debouncedSearchTerm = useDebounce(searchTerm, 400);
   const spotify = props.spotify;
 
@@ -105,26 +104,11 @@ function SearchBar({ props }) {
               name: track.name,
               artists: track.artists[0].name,
               energy: info.energy,
-              loudness: info.loudness,
               valence: info.valence,
+              danceability: calculateDance(info.tempo, info.energy,info.valence), 
               img: track.album.images[0].url,
             };
-
             setSearchFts((searchFts) => [...searchFts, temp]);
-
-            // if (!ids.includes(temp.id)) {
-            //   setSearchFts((searchFts) => [...searchFts, temp]);
-            // }
-
-            console.log("call-------------------------------");
-
-            // if (filtered.length >= 3) {
-            //   setSearchFts(filtered);
-            // }
-            // let top3 = searchFts.slice(-3);
-            // console.log(top3);
-
-            console.log(searchFts);
           });
         });
       });
@@ -150,8 +134,8 @@ function SearchBar({ props }) {
           </div>
 
           <div class="metric">
-            <div class="stringName">{"Loudness: "}</div>
-            <div class="stat">{track.loudness}</div>
+            <div class="stringName">{"Dance: "}</div>
+            <div class="stat">{track.danceability}</div>
           </div>
 
           <div class="metric">
