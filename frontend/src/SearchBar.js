@@ -108,23 +108,10 @@ function SearchBar({ props }) {
               loudness: info.loudness,
               valence: info.valence,
               img: track.album.images[0].url,
+              tempo: info.tempo,
             };
-
+            console.log(temp.tempo);
             setSearchFts((searchFts) => [...searchFts, temp]);
-
-            // if (!ids.includes(temp.id)) {
-            //   setSearchFts((searchFts) => [...searchFts, temp]);
-            // }
-
-            console.log("call-------------------------------");
-
-            // if (filtered.length >= 3) {
-            //   setSearchFts(filtered);
-            // }
-            // let top3 = searchFts.slice(-3);
-            // console.log(top3);
-
-            console.log(searchFts);
           });
         });
       });
@@ -157,6 +144,10 @@ function SearchBar({ props }) {
           <div class="metric">
             <div class="stringName">{"Happiness: "}</div>
             <div class="stat">{track.valence}</div>
+          </div>
+          <div class="metric">
+            <div class="stringName">{"tempo: "}</div>
+            <div class="stat">{track.tempo}</div>
           </div>
           {/* <div class="rank">1</div> */}
         </div>

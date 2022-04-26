@@ -53,6 +53,14 @@ function SongCard({ trackInfo }) {
               <Typography variant="h5">{trackInfo.valence}</Typography>
             </div>
           </div>
+          <div class="metric">
+            <div class="statName">
+              <Typography variant="h5">{"tempo: "}</Typography>
+            </div>
+            <div class="stat">
+              <Typography variant="h5">{trackInfo.tempo}</Typography>
+            </div>
+          </div>
           {/* <div class="rank">1</div> */}
         </div>
       </div>

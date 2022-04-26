@@ -67,6 +67,7 @@ function Dashboard({ props }) {
               dancibility: results.dancibility,
               instrumentalness: results.instrumentalness,
               img: track.album.images[0].url,
+              tempo: results.tempo,
             };
 
             setTracks((tracks) => [...tracks, temp]);
@@ -108,6 +109,7 @@ function Dashboard({ props }) {
       loudness: transformedLoudness,
       valence: transformedValence,
       img: item.img,
+      tempo: item.tempo,
     };
     trackInfo.push(trackInfoTemp);
   }
