@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/Spotify_Uncovered_v2/precache-manifest.d6780f82f7579303ad18f814d96e4991.js"
+  "/Spotify_Uncovered_v2/precache-manifest.48b869f39f277e71cda231a196a19234.js"
 );
 
 workbox.clientsClaim();
