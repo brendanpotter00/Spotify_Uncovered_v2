@@ -2,22 +2,14 @@ import React, { useEffect, useState, Component } from "react";
 import axios from "axios";
 import { TrackAnalysis, UserTracks } from "react-spotify-api";
 import "./dashboard.css";
-import Card from "./Card.js";
-import BasicTable from "./BasicTable.js";
+import SongCard from "./SongCard.js";
+
 import StatGauge from "./StatGauge";
+
 import CardList from "./CardList";
 //import { Input, List, Avatar } from "antd";
 import SearchBar from "./SearchBar.js";
 
-//=======================================================================
-
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -25,50 +17,8 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
-import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
-
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(1),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: "12ch",
-      "&:focus": {
-        width: "20ch",
-      },
-    },
-  },
-}));
+import Stack from "@mui/material/Stack";
 
 function Dashboard({ props }) {
   const spotify = props.spotify;
@@ -136,42 +86,18 @@ function Dashboard({ props }) {
   let transformedEnergy = 0;
   let transformedValence = 0;
   let transformedLoudness = 0;
+  let allEnergies = [];
+  let allValences = [];
 
   for (let item of tracks) {
     //FUNCTION FOR TRANSFORMING METRICS FOR CARDS HERE=============================
     transformedEnergy = intForZeroToOne(item.energy);
     transformedValence = intForZeroToOne(item.valence);
     transformedLoudness = intForLoudness(item.loudness);
-    const row = (
-      <div class="top20Row">
-        <div class="top20Img">
-          <img src={item.img} alt={"Song Cover for" + item.name} />
-        </div>
-        <div class="songInfo">
-          <div class="songName">{item.name}</div>
-          <div class="songArtist">{item.artists}</div>
-        </div>
 
-        <div class="songMetrics">
-          <div class="metric">
-            <div class="stringName">{"Energy: "}</div>
-            <div class="stat">{transformedEnergy}</div>
-          </div>
-
-          <div class="metric">
-            <div class="stringName">{"Loudness: "}</div>
-            <div class="stat">{transformedLoudness}</div>
-          </div>
-
-          <div class="metric">
-            <div class="stringName">{"Happiness: "}</div>
-            <div class="stat">{transformedValence}</div>
-          </div>
-          {/* <div class="rank">1</div> */}
-        </div>
-      </div>
-    );
-    divRowsFor20MostListened.push(row);
+    // divRowsFor20MostListened.push(row);
+    allEnergies.push(transformedEnergy);
+    allValences.push(transformedValence);
 
     //FUNCTION FOR FINDING METRIC AVGS=============================
     //below probably goes inside function
@@ -188,13 +114,17 @@ function Dashboard({ props }) {
 
   return (
     <div className="dashboard_container">
-      <Box sx={{ flexGrow: 1 }}>
-        <SearchBar props={props} />
-      </Box>
+      <SearchBar props={props}></SearchBar>
       <StatGauge props={trackInfo} />
-      <div class="top20Table">{divRowsFor20MostListened}</div>
-      {/* <BasicTable props={trackInfo} /> */}
-      {/* <CardList /> */}
+      <Box sx={{ width: "100%" }}>
+        <div class="top20Table">
+          <Stack spacing={2}>
+            {trackInfo.map((track) => (
+              <SongCard trackInfo={track}></SongCard>
+            ))}
+          </Stack>
+        </div>
+      </Box>
     </div>
   );
 }

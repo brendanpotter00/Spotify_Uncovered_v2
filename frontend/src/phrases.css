@@ -11,8 +11,7 @@
   align-items: center;
   margin-top: 2em;
 }
-.phraseButton {
-}
+
 .phraseButton,
 .phraseButton::after {
   width: 4em;

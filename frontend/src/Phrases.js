@@ -41,7 +41,7 @@ function Phrases({ props }) {
       (isMedHigh(v) || isHigh(v)) &&
       (isLow(l) || isLowMed(l) || isMed(l))
     )
-      return "Aww you're happy AND energetic?? That's so nice... I guess :)";
+      return "Aww you're happy AND energetic?? That's so nice :)";
     if (
       (isMedHigh(e) || isHigh(e)) &&
       (isMedHigh(l) || isHigh(l)) &&
@@ -88,7 +88,7 @@ function Phrases({ props }) {
         <div className="phrase">{determinePhrase()}</div>
       ) : (
         <button className="phraseButton" onClick={() => handleChange()}>
-          analyze
+          click
         </button>
       )}
     </div>

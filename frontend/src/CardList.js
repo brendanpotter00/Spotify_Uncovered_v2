@@ -1,5 +1,5 @@
 import React from "react";
-import Card from "./Card.js";
+import Card from "./SongCard.js";
 
 import "./cardList.css";
 

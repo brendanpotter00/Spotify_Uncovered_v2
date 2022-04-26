@@ -2,21 +2,12 @@ import React, { useEffect, useState, Component } from "react";
 import axios from "axios";
 import { TrackAnalysis, UserTracks } from "react-spotify-api";
 import "./dashboard.css";
-import Card from "./Card.js";
+
 import BasicTable from "./BasicTable.js";
 import StatGauge from "./StatGauge";
 import CardList from "./CardList";
 //import { Input, List, Avatar } from "antd";
 
-//=======================================================================
-
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -193,6 +184,7 @@ function SearchBar({ props }) {
           </Search>
         </Toolbar>
       </AppBar>
+
       <div className="searchResultsContainer">
         <div class="topResults">{html}</div>
       </div>
