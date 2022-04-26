@@ -14,24 +14,22 @@ function StatGauge({ props }) {
   //getting all energies, loudnesses, and valences in arrays
   let allEnergies = [];
   let allValences = [];
-  let allLoudnesses = [];
   let allDancies = []
   for (let track of props) {
     allEnergies.push(track.energy);
     allValences.push(track.valence);
-    allLoudnesses.push(track.loudness);
     allDancies.push(track.danceability)
   }
 
   //getting avgerages of all metrics to place in the bars
   let energyAvg = avgForMetrics(allEnergies);
   let valenceAvg = avgForMetrics(allValences);
-  let loudnessAvg = avgForMetrics(allDancies);
+  let danceAvg = avgForMetrics(allDancies);
 
   let phraseProps = {
     energy: energyAvg,
     valence: valenceAvg,
-    loudness: loudnessAvg
+    loudness: danceAvg
   }
 
   return (
@@ -81,8 +79,8 @@ function StatGauge({ props }) {
         <div className="thirdbar">
           <CircularProgressbar
             className="circleBar"
-            value={loudnessAvg}
-            text={`${loudnessAvg}`}
+            value={danceAvg}
+            text={`${danceAvg}`}
             background
             backgroundPadding={6}
             styles={buildStyles({
