@@ -76,6 +76,7 @@ function Phrases({ props }) {
   const handleChange = () => {
     setPhrase(true);
   };
+
   //CodePen for Phrase button
   //https://codepen.io/chancesq/pen/MWKREVg?editors=1100
 
@@ -90,7 +91,6 @@ function Phrases({ props }) {
           click
         </button>
       )}
-      {/* {token ? <Dashboard props={props} /> : <Login />} */}
     </div>
   );
 }

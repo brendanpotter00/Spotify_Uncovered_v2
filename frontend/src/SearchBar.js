@@ -1,4 +1,5 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState, useRef, Component } from "react";
+import { debounce } from "debounce-promise";
 import axios from "axios";
 import { TrackAnalysis, UserTracks } from "react-spotify-api";
 import "./dashboard.css";
@@ -64,18 +65,38 @@ function SearchBar({ props }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchFts, setSearchFts] = useState([]);
   const [top, setTop] = useState([]);
-
+  const debouncedSearchTerm = useDebounce(searchTerm, 400);
   const spotify = props.spotify;
 
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
+  const handleChange = async (event) => {
+    await setSearchTerm(event.target.value);
   };
+
+  function useDebounce(value, delay) {
+    // State and setters for debounced value
+    const [debouncedValue, setDebouncedValue] = useState(value);
+    useEffect(
+      () => {
+        // Update debounced value after delay
+        const handler = setTimeout(() => {
+          setDebouncedValue(value);
+        }, delay);
+        // Cancel the timeout if value changes (also on delay change or unmount)
+        // This is how we prevent debounced value from updating if value is changed ...
+        // .. within the delay period. Timeout gets cleared and restarted.
+        return () => {
+          clearTimeout(handler);
+        };
+      },
+      [value, delay] // Only re-call effect if value or delay changes
+    );
+    return debouncedValue;
+  }
 
   useEffect(() => {
     setSearchFts([]);
-
     const searchResults = spotify
-      .searchTracks(searchTerm, { limit: 3, offset: 1 })
+      .searchTracks(searchTerm, { limit: 3, offset: 0 })
       .then((results) => {
         let resultFts = results.tracks.items.map((track) => {
           spotify.getAudioFeaturesForTrack(track.id).then((info) => {
@@ -88,26 +109,14 @@ function SearchBar({ props }) {
               valence: info.valence,
               img: track.album.images[0].url,
             };
-            let ids = searchFts.map((track) => track.id);
-            let names = searchFts.map((track) => track.name);
-            let filtered = searchFts.filter(
-              ({ id }, index) => !ids.includes(id, index + 1)
-            );
+
             setSearchFts((searchFts) => [...searchFts, temp]);
 
             // if (!ids.includes(temp.id)) {
             //   setSearchFts((searchFts) => [...searchFts, temp]);
             // }
 
-            if (filtered.length >= 8) {
-              // setSearchFts(top3);
-              let top3 = filtered.slice(-3);
-              let total = searchFts;
-              //setSearchFts(total.slice(-3));
-              //console.log("INSIDE " + searchFts.map((t) => t.name));
-
-              console.log("call-------------------------------");
-            }
+            console.log("call-------------------------------");
 
             // if (filtered.length >= 3) {
             //   setSearchFts(filtered);
@@ -119,7 +128,7 @@ function SearchBar({ props }) {
           });
         });
       });
-  }, [searchTerm]);
+  }, [debouncedSearchTerm]);
 
   let html = [];
 
