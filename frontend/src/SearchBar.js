@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Component } from "react";
+import React, { useEffect, useState, useRef, Component } from "react";
 import axios from "axios";
 import { TrackAnalysis, UserTracks } from "react-spotify-api";
 import "./dashboard.css";
@@ -76,18 +76,38 @@ function SearchBar({ props }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchFts, setSearchFts] = useState([]);
   const [top, setTop] = useState([]);
-
+  const debouncedSearchTerm = useDebounce(searchTerm, 400);
   const spotify = props.spotify;
 
-  const handleChange = (event) => {
-    setSearchTerm(event.target.value);
+  const handleChange = async (event) => {
+    await setSearchTerm(event.target.value);
   };
+
+  function useDebounce(value, delay) {
+    // State and setters for debounced value
+    const [debouncedValue, setDebouncedValue] = useState(value);
+    useEffect(
+      () => {
+        // Update debounced value after delay
+        const handler = setTimeout(() => {
+          setDebouncedValue(value);
+        }, delay);
+        // Cancel the timeout if value changes (also on delay change or unmount)
+        // This is how we prevent debounced value from updating if value is changed ...
+        // .. within the delay period. Timeout gets cleared and restarted.
+        return () => {
+          clearTimeout(handler);
+        };
+      },
+      [value, delay] // Only re-call effect if value or delay changes
+    );
+    return debouncedValue;
+  }
 
   useEffect(() => {
     setSearchFts([]);
-
     const searchResults = spotify
-      .searchTracks(searchTerm, { limit: 3, offset: 1 })
+      .searchTracks(searchTerm, { limit: 3, offset: 0 })
       .then((results) => {
         let resultFts = results.tracks.items.map((track) => {
           spotify.getAudioFeaturesForTrack(track.id).then((info) => {
@@ -120,7 +140,7 @@ function SearchBar({ props }) {
           });
         });
       });
-  }, [searchTerm]);
+  }, [debouncedSearchTerm]);
 
   let html = [];
 
