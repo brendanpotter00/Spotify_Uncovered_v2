@@ -59,6 +59,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+function calculateDance(tempo,energy,happy) 
+{ 
+  energy = Math.round(energy * 100);
+  happy = Math.round(happy * 100); 
+  let diff =  Math.abs(130 - tempo); 
+  let n =  (130 + tempo) / 2 ;
+  let percentDiff = (diff/n) * 100; 
+
+  let scale = ((100) - (percentDiff )) * (100 - 1) / ((100)- 1) + 1 ;  
+  return Math.round(((1.1*energy) + ( .75 * scale) +(.90 * happy)) / 2.75); 
+
+}
 
 function SearchBar({ props }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -86,28 +98,17 @@ function SearchBar({ props }) {
               energy: info.energy,
               loudness: info.loudness,
               valence: info.valence,
+              danceability: calculateDance(info.tempo, info.energy,info.valence), 
               img: track.album.images[0].url,
             };
-            let ids = searchFts.map((track) => track.id);
-            let names = searchFts.map((track) => track.name);
-            let filtered = searchFts.filter(
-              ({ id }, index) => !ids.includes(id, index + 1)
-            );
+            
             setSearchFts((searchFts) => [...searchFts, temp]);
 
             // if (!ids.includes(temp.id)) {
             //   setSearchFts((searchFts) => [...searchFts, temp]);
             // }
 
-            if (filtered.length >= 8) {
-              // setSearchFts(top3);
-              let top3 = filtered.slice(-3);
-              let total = searchFts;
-              //setSearchFts(total.slice(-3));
-              //console.log("INSIDE " + searchFts.map((t) => t.name));
-
-              console.log("call-------------------------------");
-            }
+          
 
             // if (filtered.length >= 3) {
             //   setSearchFts(filtered);
@@ -141,8 +142,8 @@ function SearchBar({ props }) {
           </div>
 
           <div class="metric">
-            <div class="stringName">{"Loudness: "}</div>
-            <div class="stat">{track.loudness}</div>
+            <div class="stringName">{"Dance: "}</div>
+            <div class="stat">{track.danceability}</div>
           </div>
 
           <div class="metric">

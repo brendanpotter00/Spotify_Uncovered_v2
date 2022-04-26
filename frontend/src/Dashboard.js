@@ -30,6 +30,18 @@ function Dashboard({ props }) {
   // energy: float 0-1
   //https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
 
+function calculateDance(tempo,energy,happy) 
+{ 
+  
+  let diff =  Math.abs(130 - tempo); 
+  let n =  (130 + tempo) / 2 ;
+  let percentDiff = (diff/n) * 100; 
+
+  let scale = ((100) - (percentDiff )) * (100 - 1) / ((100)- 1) + 1 ;  
+  return Math.round(((1.1*energy) + ( .75 * scale) +(.90 * happy)) / 2.75); 
+
+}
+
   function intForZeroToOne(metric) {
     return Math.round(metric * 100);
   }
@@ -64,11 +76,10 @@ function Dashboard({ props }) {
               loudness: results.loudness,
               acousticness: results.acousticness,
               valence: results.valence,
-              dancibility: results.dancibility,
+              dancibility: results.tempo,
               instrumentalness: results.instrumentalness,
               img: track.album.images[0].url,
             };
-
             setTracks((tracks) => [...tracks, temp]);
           });
         });
@@ -86,6 +97,7 @@ function Dashboard({ props }) {
   let transformedEnergy = 0;
   let transformedValence = 0;
   let transformedLoudness = 0;
+  let dance = 0; 
   let allEnergies = [];
   let allValences = [];
 
@@ -94,6 +106,8 @@ function Dashboard({ props }) {
     transformedEnergy = intForZeroToOne(item.energy);
     transformedValence = intForZeroToOne(item.valence);
     transformedLoudness = intForLoudness(item.loudness);
+    dance = calculateDance(Math.round(item.dancibility),transformedEnergy,transformedValence)
+
 
     // divRowsFor20MostListened.push(row);
     allEnergies.push(transformedEnergy);
@@ -108,6 +122,7 @@ function Dashboard({ props }) {
       loudness: transformedLoudness,
       valence: transformedValence,
       img: item.img,
+      danceability: dance
     };
     trackInfo.push(trackInfoTemp);
   }

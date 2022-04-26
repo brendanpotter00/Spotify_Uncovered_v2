@@ -15,16 +15,18 @@ function StatGauge({ props }) {
   let allEnergies = [];
   let allValences = [];
   let allLoudnesses = [];
+  let allDancies = []
   for (let track of props) {
     allEnergies.push(track.energy);
     allValences.push(track.valence);
     allLoudnesses.push(track.loudness);
+    allDancies.push(track.danceability)
   }
 
   //getting avgerages of all metrics to place in the bars
   let energyAvg = avgForMetrics(allEnergies);
   let valenceAvg = avgForMetrics(allValences);
-  let loudnessAvg = avgForMetrics(allLoudnesses);
+  let loudnessAvg = avgForMetrics(allDancies);
 
   let phraseProps = {
     energy: energyAvg,
@@ -94,7 +96,7 @@ function StatGauge({ props }) {
               trailColor: "transparent",
             })}
           />
-          <h3> Loudness </h3>
+          <h3> Danceability </h3>
         </div>
       </div>
       <Phrases props={phraseProps} />

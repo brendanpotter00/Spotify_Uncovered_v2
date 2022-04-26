@@ -38,10 +38,10 @@ function SongCard({ trackInfo }) {
 
           <div class="metric">
             <div class="statName">
-              <Typography variant="h5">{"Loudness: "}</Typography>
+              <Typography variant="h5">{"Danceability: "}</Typography>
             </div>
             <div class="stat">
-              <Typography variant="h5">{trackInfo.loudness}</Typography>
+              <Typography variant="h5">{trackInfo.danceability}</Typography>
             </div>
           </div>
 
