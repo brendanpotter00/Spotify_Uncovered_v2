@@ -103,9 +103,10 @@ function SearchBar({ props }) {
               id: track.id,
               name: track.name,
               artists: track.artists[0].name,
-              energy: info.energy,
-              valence: info.valence,
-              danceability: calculateDance(info.tempo, info.energy,info.valence), 
+              energy: Math.round(info.energy*100),
+              valence: Math.round(info.valence*100),
+              danceability: Math.round(info.danceability*100),
+              //danceability: calculateDance(info.tempo, info.energy,info.valence), 
               img: track.album.images[0].url,
             };
             setSearchFts((searchFts) => [...searchFts, temp]);

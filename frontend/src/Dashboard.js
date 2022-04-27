@@ -44,7 +44,8 @@ function Dashboard({ props }) {
               artists: track.artists[0].name,
               energy: intForZeroToOne(results.energy),
               valence: intForZeroToOne(results.valence),
-              danceability: calculateDance(results.tempo, results.energy,results.valence), 
+              danceability: intForZeroToOne(results.danceability),
+              //danceability: calculateDance(results.tempo, results.energy,results.valence), 
               img: track.album.images[0].url,
             };
             setTracks((tracks) => [...tracks, temp]);
