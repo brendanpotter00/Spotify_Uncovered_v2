@@ -16,18 +16,6 @@ function Dashboard({ props }) {
   // energy: float 0-1
   //https://developer.spotify.com/documentation/web-api/reference/#/operations/get-audio-features
 
-  function calculateDance(tempo,energy,happy) 
-{ 
-  energy = Math.round(energy * 100);
-  happy = Math.round(happy * 100); 
-  let diff =  Math.abs(130 - tempo); 
-  let n =  (130 + tempo) / 2 ;
-  let percentDiff = (diff/n) * 100; 
-
-  let scale = ((100) - (percentDiff )) * (100 - 1) / ((100)- 1) + 1 ;  
-  return Math.round(((1.1*energy) + ( .75 * scale) +(.90 * happy)) / 2.75); 
-
-}
   function intForZeroToOne(metric) {
     return Math.round(metric * 100);
   }
@@ -44,7 +32,7 @@ function Dashboard({ props }) {
               artists: track.artists[0].name,
               energy: intForZeroToOne(results.energy),
               valence: intForZeroToOne(results.valence),
-              danceability: calculateDance(results.tempo, results.energy,results.valence), 
+              danceability: intForZeroToOne(results.danceability),
               img: track.album.images[0].url,
             };
             setTracks((tracks) => [...tracks, temp]);
