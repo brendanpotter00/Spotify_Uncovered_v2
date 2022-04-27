@@ -109,6 +109,7 @@ function SearchBar({ props }) {
               valence: info.valence,
               img: track.album.images[0].url,
               tempo: info.tempo,
+              danceability: info.danceability,
             };
             console.log(temp.tempo);
             setSearchFts((searchFts) => [...searchFts, temp]);
@@ -148,6 +149,10 @@ function SearchBar({ props }) {
           <div class="metric">
             <div class="stringName">{"tempo: "}</div>
             <div class="stat">{track.tempo}</div>
+          </div>
+          <div class="metric">
+            <div class="stringName">{"dance: "}</div>
+            <div class="stat">{track.danceability}</div>
           </div>
           {/* <div class="rank">1</div> */}
         </div>
