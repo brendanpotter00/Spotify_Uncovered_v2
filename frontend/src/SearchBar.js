@@ -55,6 +55,10 @@ function SearchBar({ props }) {
   const debouncedSearchTerm = useDebounce(searchTerm, 400);
   const spotify = props.spotify;
 
+  function intForZeroToOne(metric) {
+    return Math.round(metric * 100);
+  }
+
   const handleChange = async (event) => {
     await setSearchTerm(event.target.value);
   };
@@ -91,9 +95,9 @@ function SearchBar({ props }) {
               id: track.id,
               name: track.name,
               artists: track.artists[0].name,
-              energy: info.energy,
-              valence: info.valence,
-              danceability: info.danceability,
+              energy: intForZeroToOne(info.energy),
+              valence: intForZeroToOne(info.valence),
+              danceability: intForZeroToOne(info.danceability),
               img: track.album.images[0].url,
             };
             setSearchFts((searchFts) => [...searchFts, temp]);

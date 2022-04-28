@@ -7,30 +7,43 @@ import Phrases from "./Phrases";
 
 const percentage = 66;
 function StatGauge({ props }) {
-  function avgForMetrics(metrics) {
-    return Math.round(metrics.reduce((a, b) => a + b, 0) / metrics.length);
+  function percentDifference(a, b) {
+    return Math.abs(a - b) / ((a + b) / 2);
+  }
+
+  function weightedAvgs(metrics) {
+    let weights = metrics.map((n) => percentDifference(50, n));
+    const [sum, weightSum] = weights.reduce(
+      (acc, w, i) => {
+        acc[0] = acc[0] + metrics[i] * w;
+        acc[1] = acc[1] + w;
+        return acc;
+      },
+      [0, 0]
+    );
+    return Math.round(sum / weightSum);
   }
 
   //getting all energies, loudnesses, and valences in arrays
   let allEnergies = [];
   let allValences = [];
-  let allDancies = []
+  let allDancies = [];
   for (let track of props) {
     allEnergies.push(track.energy);
     allValences.push(track.valence);
-    allDancies.push(track.danceability)
+    allDancies.push(track.danceability);
   }
 
   //getting avgerages of all metrics to place in the bars
-  let energyAvg = avgForMetrics(allEnergies);
-  let valenceAvg = avgForMetrics(allValences);
-  let danceAvg = avgForMetrics(allDancies);
+  let energyAvg = weightedAvgs(allEnergies);
+  let valenceAvg = weightedAvgs(allValences);
+  let danceAvg = weightedAvgs(allDancies);
 
   let phraseProps = {
     energy: energyAvg,
     valence: valenceAvg,
-    loudness: danceAvg
-  }
+    loudness: danceAvg,
+  };
 
   return (
     <div>
