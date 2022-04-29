@@ -63,6 +63,7 @@ function SearchBar({ props }) {
     await setSearchTerm(event.target.value);
   };
 
+  // Creates a delay between the input and the searching so the rendering doesn't breat
   function useDebounce(value, delay) {
     // State and setters for debounced value
     const [debouncedValue, setDebouncedValue] = useState(value);
@@ -84,6 +85,8 @@ function SearchBar({ props }) {
     return debouncedValue;
   }
 
+  // On search term change this gets the top 3 results from the spotify api and the stats we use for them and sets
+  // this info to searchResults
   useEffect(() => {
     setSearchFts([]);
     const searchResults = spotify
