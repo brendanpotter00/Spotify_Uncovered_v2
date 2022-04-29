@@ -4,6 +4,7 @@ import { deployedLoginUrl } from "./spotify";
 import "./login.css";
 import Button from "@mui/material/Button";
 
+// gets the user's login token for their spotify
 function Login() {
   return (
     <div className="login">
