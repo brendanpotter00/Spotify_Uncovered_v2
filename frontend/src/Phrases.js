@@ -5,7 +5,7 @@ function Phrases({ props }) {
   const [phrase, setPhrase] = useState(false);
   let e = props.energy;
   let v = props.valence;
-  let l = props.loudness;
+  let d = props.dance;
 
   function isLow(value) {
     return value <= 25;
@@ -28,46 +28,52 @@ function Phrases({ props }) {
   }
 
   function determinePhrase() {
-    if (isLowMed(v) && isMed(e) && isLowMed(l))
+    if (isLowMed(v) && isMed(e) && isLowMed(d))
       return "Feeling kinda meh, huh? It's okay we've all been there";
     if (
       (isLow(e) || isLowMed(e)) &&
-      (isLow(l) || isLowMed(l) || isMed(l)) &&
+      (isLow(d) || isLowMed(d) || isMed(d)) &&
       (isMedHigh(v) || isHigh(v))
     )
       return "I think you could stand to spice it up a bit. Not EVERY song needs to be a slow song";
     if (
       (isMedHigh(e) || isHigh(e)) &&
       (isMedHigh(v) || isHigh(v)) &&
-      (isLow(l) || isLowMed(l) || isMed(l))
+      (isLow(d) || isLowMed(d) || isMed(d))
     )
       return "Aww you're happy AND energetic?? That's so nice :)";
     if (
       (isMedHigh(e) || isHigh(e)) &&
-      (isMedHigh(l) || isHigh(l)) &&
+      (isMedHigh(d) || isHigh(d)) &&
       (isLow(v) || isLowMed(v) || isMed(v))
     )
       return "Have you heard of 'chill'? You could use it";
     if (
       (isLow(e) || isLowMed(e)) &&
       (isLow(v) || isLowMed(v) || isMed(v)) &&
-      (isMedHigh(l) || isHigh(l))
+      (isLow(d) || isLowMed(d) || isMed(d))
+      // (isMedHigh(d) || isHigh(d))
     )
       return "You seem like you could use a pick me up. Grab a coffee and go for a walk";
-    if ((isMedHigh(v) || isHigh(v)) && (isMed(e) || isMedHigh(e) || isHigh(e)))
+    if (
+      (isMedHigh(v) || isHigh(v)) &&
+      (isMed(e) || isMedHigh(e) || isHigh(e))
+    )
       return "Your music suggests you are doing great. Way to embrace 'fake it till you make it'";
-    if (isMed(v) && isMed(l) && isMed(e))
+    if (isMed(v) && isMed(d) && isMed(e))
       return "Nothin wrong with floating in the middle";
     if (
-      ((isMed(v) || isMedHigh(v)) && isMed(l) && isMed(e)) ||
-      ((isMed(l) || isMedHigh(l)) && isMed(v) && isMed(e)) ||
-      ((isMed(e) || isMedHigh(e)) && isMed(l) && isMed(v))
+      ((isMed(v) || isMedHigh(v)) && isMed(d) && isMed(e)) ||
+      ((isMed(d) || isMedHigh(d)) && isMed(v) && isMed(e)) ||
+      ((isMed(e) || isMedHigh(e)) && isMed(d) && isMed(v))
     )
       return "Congrats! You're just barely not basic :)";
-    if (isMed(l) && isMed(e)) return "Ahhh so you're the mellow type";
+    if (isMed(d) && isMed(e)) 
+      return "Ahhh so you're the mellow type";
     if (isHigh(e))
       return "Maybe you should lay off the caffeine for a bit, just a suggestion";
-    if (isHigh(l)) return "Wow... that's really loud. Maybe take a break?";
+    if (isHigh(d)) 
+      return "Wow... I hope you're at least a good dancer";
     if (isLow(v) || isLowMed(v))
       return "You seem a bit sad, might I suggest Spotify's 'Mood Booster' playlist";
     else return "I like your tunes!";
