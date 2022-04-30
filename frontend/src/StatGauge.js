@@ -46,7 +46,7 @@ function StatGauge({ props }) {
   let phraseProps = {
     energy: energyAvg,
     valence: valenceAvg,
-    loudness: danceAvg,
+    dance: danceAvg,
   };
 
   return (
