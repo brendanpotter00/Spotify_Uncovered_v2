@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, Component } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { buildStyles } from "react-circular-progressbar";
 import "./statGauge.css";
@@ -7,13 +7,21 @@ import Phrases from "./Phrases";
 
 const percentage = 66;
 function StatGauge({ props }) {
+  let testArr = [49, 59, 90, 100, 30, 20, 30];
+  function unitTest(arr) {
+    return weightedAvgs(arr);
+  }
+  useEffect(() => {
+    console.log(unitTest(testArr));
+    console.log("Correct value = 54");
+  }, []);
 
   function percentDifference(a, b) {
     return Math.abs(a - b) / ((a + b) / 2);
   }
 
-// weightedAvgs goes through the values for a certain stat and uses the percent difference between the number
-// and 50 to create weights that get multiplied by the value so that the stats are a bit more spread out and more accurate
+  // weightedAvgs goes through the values for a certain stat and uses the percent difference between the number
+  // and 50 to create weights that get multiplied by the value so that the stats are a bit more spread out and more accurate
   function weightedAvgs(metrics) {
     let weights = metrics.map((n) => percentDifference(50, n));
     const [sum, weightSum] = weights.reduce(
