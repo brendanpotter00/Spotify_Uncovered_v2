@@ -32,10 +32,10 @@ const spotify = new SpotifyWebApi();
 function App() {
   const [token, setToken] = React.useState(null);
   const [user, setUser] = React.useState(null);
+  const [userId, setUserId] = React.useState(null);
 
   //This function sets the access token and gets the user with the access code given from the spotify api
   React.useEffect(() => {
-    //code...
     const hash = getTokenFromResponse();
     window.location.hash = "";
     const _token = hash.access_token;
@@ -47,6 +47,7 @@ function App() {
       //grabbing the user
       spotify.getMe().then((user) => {
         setUser(user);
+        setUserId(user.id);
       });
     }
   }, []);
@@ -54,6 +55,7 @@ function App() {
   let props = {
     spotify: spotify,
     token: token,
+    userId: userId,
   };
 
   return (

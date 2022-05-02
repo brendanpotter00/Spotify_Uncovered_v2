@@ -9,7 +9,8 @@ import Stack from "@mui/material/Stack";
 function Dashboard({ props }) {
   const spotify = props.spotify;
   const [tracks, setTracks] = useState([]);
-
+  const [playlists, setPlaylists] = useState([]);
+  const userId = props.userId;
   //FUNCTION CREATION HERE===============================================
   // valence: float 0-1
   // loudness: float 0-60 DB
@@ -20,8 +21,8 @@ function Dashboard({ props }) {
     return Math.round(metric * 100);
   }
 
-// On component mount this gets the user's top 20 tracks from the spotify api and the stats we use for them and sets
-// this info to trackList
+  // On component mount this gets the user's top 20 tracks from the spotify api and the stats we use for them and sets
+  // this info to trackList
 
   useEffect(() => {
     let trackList = [];
@@ -46,6 +47,27 @@ function Dashboard({ props }) {
         console.log("Error:", err);
       }
     );
+  }, []);
+
+  useEffect(() => {
+    spotify.getUserPlaylists(userId).then((allPlaylists) => {
+      let play = allPlaylists.items.map((playlist) => {
+        spotify.getPlaylistTracks(playlist.id).then((tracks) => {
+          tracks.items.map((track) => {
+            let trackTemp = {
+              name: track.name,
+            };
+            console.log(trackTemp);
+            let temp2 = {
+              name: playlist.name,
+              id: playlist.id,
+              tracks: trackTemp,
+            };
+            //console.log(temp2);
+          });
+        });
+      });
+    });
   }, []);
 
   return (
