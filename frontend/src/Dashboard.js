@@ -20,8 +20,8 @@ function Dashboard({ props }) {
     return Math.round(metric * 100);
   }
 
-// On component mount this gets the user's top 20 tracks from the spotify api and the stats we use for them and sets
-// this info to trackList
+  // On component mount this gets the user's top 20 tracks from the spotify api and the stats we use for them and sets
+  // this info to trackList
 
   useEffect(() => {
     let trackList = [];
