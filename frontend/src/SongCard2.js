@@ -66,6 +66,9 @@ export default function SongCard2({ trackInfo }) {
             >
               {"Happiness: " + trackInfo.valence}
             </Typography>
+            
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      
           </CardContent>
           <Box
             sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}
