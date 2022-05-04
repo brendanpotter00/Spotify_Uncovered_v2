@@ -4,9 +4,7 @@
   justify-content: space-evenly;
   background-color: #424242;
   flex-direction: row;
-  /* background-color: #204064; */
   border-radius: 100px;
-  flex-basis: auto;
   box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.329);
   padding: 2rem;
 }
@@ -15,54 +13,56 @@
     flex-direction: column;
     align-items: stretch;
   }
+  .top20Img {
+    max-width: inherit;
+  }
 }
 /* > means must be a direct decendant of top20Row and * means everything */
 .top20Row > * {
-  flex-grow: 1;
   align-self: center;
 }
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
   .top20Row > * {
     max-width: 50%;
   }
-}
+
+} */
+
 @media (min-width: 601px) {
   /* .top20Row {
     max-height: 110px;
   } */
   .top20Img {
-    max-width: 10%;
-    max-height: 100%;
-
-    /* padding-top: 100%; */
-    /* max-height: 100%; */
-  }
-  .top20Img::before {
-    padding-top: 100%;
+    max-height: inherit;
   }
   .stat {
     align-self: flex-end;
   }
   .top20Row {
-    height: 150px;
+    max-height: 200px !important;
+  }
+  .songInfo {
+    flex-grow: 2;
+  }
+  .songMetrics {
+    flex-grow: 2;
   }
 }
 
 .top20Img {
   display: flex;
   justify-content: center;
+  aspect-ratio: 1/1;
 }
 .top20Img img {
   border-radius: 50%;
-  aspect-ratio: 1/1 !important;
+  box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.087);
+  /* aspect-ratio: 1/1; */
   max-width: 100%;
-  /* width: 50vw; */
-
   max-height: 100%;
-
+  /* object-fit: contain; */
   /* object-fit: scale-down; */
   /* overflow: hidden; */
-  box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.087);
 }
 .songInfo {
   display: flex;
