@@ -12,6 +12,7 @@ import { ThemeProvider } from "@emotion/react";
 
 const theme = createTheme({
   palette: {
+    type: "dark",
     primary: {
       light: "#DF7C52",
       main: "#d85c27",
@@ -23,6 +24,18 @@ const theme = createTheme({
       main: "#2f5c8f",
       dark: "#204064",
       contrastText: "#fff",
+    },
+    shape: {
+      borderRadius: 4,
+    },
+    background: {
+      default: "#303030",
+      paper: "#424242",
+    },
+    text: {
+      primary: "#d85c27",
+      secondary: "#DF7C52",
+      default: "#FFFFFF",
     },
   },
 });
