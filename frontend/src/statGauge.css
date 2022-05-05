@@ -1,13 +1,15 @@
 .bars > * {
-  display: inherit;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 25vh;
+  /* height: 25vh; */
   padding: 1rem;
-  width: 20vw;
+  /* width: 20vw; */
   box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.178);
   border-radius: 1rem;
+  flex: 1 1 0;
+  width: 0;
 }
 
 .bars {
@@ -16,9 +18,9 @@
   justify-content: center;
   gap: 1rem;
   align-items: center;
-  margin-left: 1rem;
-  margin-right: 1rem;
-  padding: 2rem;
+  /* margin-left: 1rem;
+  margin-right: 1rem; */
+  padding: 1rem;
 }
 
 .circleBar {

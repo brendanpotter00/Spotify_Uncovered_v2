@@ -13,6 +13,9 @@ theme = responsiveFontSizes(theme);
 
 function SongCard({ trackInfo }) {
   return (
+    //for topography I used this as reference: https://mui.com/material-ui/customization/typography/
+    //sx in Material ui is used to add additional css
+    //the size of the fonts changes with the scaling of the app here is the refere for the sizing https://v3.mui.com/layout/breakpoints/
     <ThemeProvider theme={theme}>
       <div class="top20Row">
         <div class="top20Img">

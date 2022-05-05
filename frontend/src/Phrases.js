@@ -88,7 +88,7 @@ function Phrases({ props }) {
       {/* <div className="phrase">{determinePhrase()}</div> */}
 
       {phrase ? (
-        <Typography sx={{ padding: 1 }} variant="h4">
+        <Typography sx={{ typography: { xs: "h3", sm: "h4" } }}>
           {determinePhrase()}
         </Typography>
       ) : (
