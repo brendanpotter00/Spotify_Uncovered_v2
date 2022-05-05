@@ -71,7 +71,12 @@ function StatGauge({ props }) {
               trailColor: "transparent",
             })}
           />
-          <Typography sx={{ padding: 1 }} variant="h4">
+          <Typography
+            sx={{
+              padding: 1,
+              typography: { xs: "Subtitle2", sm: "h5", md: "h4" },
+            }}
+          >
             Energy
           </Typography>
         </div>
@@ -93,7 +98,12 @@ function StatGauge({ props }) {
               trailColor: "transparent",
             })}
           />
-          <Typography sx={{ padding: 1 }} variant="h4">
+          <Typography
+            sx={{
+              padding: 1,
+              typography: { xs: "Subtitle2", sm: "h5", md: "h4" },
+            }}
+          >
             Happiness
           </Typography>
         </div>
@@ -115,7 +125,12 @@ function StatGauge({ props }) {
               trailColor: "transparent",
             })}
           />
-          <Typography sx={{ padding: 1 }} variant="h4">
+          <Typography
+            sx={{
+              padding: 1,
+              typography: { xs: "Subtitle2", sm: "h5", md: "h4" },
+            }}
+          >
             Danceability
           </Typography>
         </div>
