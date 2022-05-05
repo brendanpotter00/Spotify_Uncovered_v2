@@ -55,10 +55,7 @@ function Phrases({ props }) {
       // (isMedHigh(d) || isHigh(d))
     )
       return "You seem like you could use a pick me up. Grab a coffee and go for a walk";
-    if (
-      (isMedHigh(v) || isHigh(v)) &&
-      (isMed(e) || isMedHigh(e) || isHigh(e))
-    )
+    if ((isMedHigh(v) || isHigh(v)) && (isMed(e) || isMedHigh(e) || isHigh(e)))
       return "Your music suggests you are doing great. Way to embrace 'fake it till you make it'";
     if (isMed(v) && isMed(d) && isMed(e))
       return "Nothin wrong with floating in the middle";
@@ -68,12 +65,10 @@ function Phrases({ props }) {
       ((isMed(e) || isMedHigh(e)) && isMed(d) && isMed(v))
     )
       return "Congrats! You're just barely not basic :)";
-    if (isMed(d) && isMed(e)) 
-      return "Ahhh so you're the mellow type";
+    if (isMed(d) && isMed(e)) return "Ahhh so you're the mellow type";
     if (isHigh(e))
       return "Maybe you should lay off the caffeine for a bit, just a suggestion";
-    if (isHigh(d)) 
-      return "Wow... I hope you're at least a good dancer";
+    if (isHigh(d)) return "Wow... I hope you're at least a good dancer";
     if (isLow(v) || isLowMed(v))
       return "You seem a bit sad, might I suggest Spotify's 'Mood Booster' playlist";
     else return "I like your tunes!";
@@ -83,13 +78,12 @@ function Phrases({ props }) {
     setPhrase(true);
   };
 
-  //CodePen for Phrase button
-  //https://codepen.io/chancesq/pen/MWKREVg?editors=1100
+  //HTML Logic
+  // 1. if there is a phrase dont display the button; if not display the button
+  // 2. when the button is pressed it calls handleChange which calls determinePhrase
 
   return (
     <div className="phrase-container">
-      {/* <div className="phrase">{determinePhrase()}</div> */}
-
       {phrase ? (
         <div className="phrase">{determinePhrase()}</div>
       ) : (

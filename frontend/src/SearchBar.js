@@ -55,10 +55,12 @@ function SearchBar({ props }) {
   const debouncedSearchTerm = useDebounce(searchTerm, 400);
   const spotify = props.spotify;
 
+  //changes decimal into two digit int
   function intForZeroToOne(metric) {
     return Math.round(metric * 100);
   }
 
+  //is called when search bar is updated and timer allows
   const handleChange = async (event) => {
     await setSearchTerm(event.target.value);
   };
@@ -111,6 +113,7 @@ function SearchBar({ props }) {
 
   let html = [];
 
+  //loop to create html obj to pass to display seach results
   for (let track of searchFts) {
     const ret = (
       <div class="top20Row">

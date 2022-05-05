@@ -1,7 +1,6 @@
 import React, { useEffect, useState, Component } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { buildStyles } from "react-circular-progressbar";
-import AnimatedProgressProvider from "./AnimatedProgressProvider";
 import "./statGauge.css";
 import "react-circular-progressbar/dist/styles.css";
 import Phrases from "./Phrases";
