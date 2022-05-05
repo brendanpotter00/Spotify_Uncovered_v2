@@ -1,10 +1,9 @@
 import "./App.css";
 import Login from "./Login.js";
 import Dashboard from "./Dashboard.js";
-// import React, { useEffect, useState } from "react";
+//import React, { useEffect, useState } from "react";
 import { getTokenFromResponse } from "./spotify.js";
 import SpotifyWebApi from "spotify-web-api-js";
-
 import * as React from "react";
 
 import { createTheme } from "@mui/material/styles";
@@ -52,6 +51,7 @@ function App() {
     const hash = getTokenFromResponse();
     window.location.hash = "";
     const _token = hash.access_token;
+
 
     if (_token) {
       setToken(_token);
