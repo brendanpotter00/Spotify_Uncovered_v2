@@ -1,9 +1,11 @@
 import React, { useEffect, useState, Component } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { buildStyles } from "react-circular-progressbar";
+import AnimatedProgressProvider from "./AnimatedProgressProvider";
 import "./statGauge.css";
 import "react-circular-progressbar/dist/styles.css";
 import Phrases from "./Phrases";
+import Typography from "@mui/material/Typography";
 
 const percentage = 66;
 function StatGauge({ props }) {
@@ -78,7 +80,9 @@ function StatGauge({ props }) {
               trailColor: "transparent",
             })}
           />
-          <h3> Energy </h3>
+          <Typography sx={{ padding: 1 }} variant="h4">
+            Energy
+          </Typography>
         </div>
         <div className="secondbar">
           <CircularProgressbar
@@ -98,8 +102,9 @@ function StatGauge({ props }) {
               trailColor: "transparent",
             })}
           />
-
-          <h3> Happiness </h3>
+          <Typography sx={{ padding: 1 }} variant="h4">
+            Happiness
+          </Typography>
         </div>
         <div className="thirdbar">
           <CircularProgressbar
@@ -119,7 +124,9 @@ function StatGauge({ props }) {
               trailColor: "transparent",
             })}
           />
-          <h3> Danceability </h3>
+          <Typography sx={{ padding: 1 }} variant="h4">
+            Danceability
+          </Typography>
         </div>
       </div>
       <Phrases props={phraseProps} />

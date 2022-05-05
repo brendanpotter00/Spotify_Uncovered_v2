@@ -4,9 +4,7 @@
   justify-content: space-evenly;
   background-color: #424242;
   flex-direction: row;
-  /* background-color: #204064; */
   border-radius: 100px;
-  flex-basis: auto;
   box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.329);
   padding: 2rem;
 }
@@ -18,37 +16,40 @@
 }
 /* > means must be a direct decendant of top20Row and * means everything */
 .top20Row > * {
-  flex-grow: 1;
   align-self: center;
 }
-@media (max-width: 600px) {
-  .top20Row > * {
-    max-width: 50%;
-  }
-}
+
 @media (min-width: 601px) {
   /* .top20Row {
-    max-height: 170px;
+    max-height: 110px;
   } */
   .top20Img {
-    max-width: 20%;
+    max-height: inherit;
   }
   .stat {
     align-self: flex-end;
+  }
+  .top20Row {
+    max-height: 150px !important;
+  }
+  .songInfo {
+    flex-grow: 2;
+  }
+  .songMetrics {
+    flex-grow: 2;
   }
 }
 
 .top20Img {
   display: flex;
   justify-content: center;
-  /* max-height: calc(100% - 2rem); */
-  padding: 1rem;
+  aspect-ratio: 1/1;
 }
 .top20Img img {
   border-radius: 50%;
+  box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.087);
   max-width: 100%;
   max-height: 100%;
-  box-shadow: 5px 5px 20px 0.5px rgba(0, 0, 0, 0.087);
 }
 .songInfo {
   display: flex;

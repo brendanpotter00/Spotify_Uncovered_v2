@@ -5,12 +5,15 @@ import StatGauge from "./StatGauge";
 import SearchBar from "./SearchBar.js";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import PacmanLoader from "react-spinners/PacmanLoader";
+import BarLoader from "react-spinners/BarLoader";
 
 function Dashboard({ props }) {
   const spotify = props.spotify;
   const [tracks, setTracks] = useState([]);
-  const [playlists, setPlaylists] = useState([]);
-  const userId = props.userId;
+
+  const [loading, setLoading] = React.useState(true);
+
   //FUNCTION CREATION HERE===============================================
   // valence: float 0-1
   // loudness: float 0-60 DB
@@ -25,6 +28,9 @@ function Dashboard({ props }) {
   // this info to trackList
 
   useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 3000);
     let trackList = [];
     spotify.getMyTopTracks().then(
       (tracks) => {
@@ -49,40 +55,33 @@ function Dashboard({ props }) {
     );
   }, []);
 
-  useEffect(() => {
-    spotify.getUserPlaylists(userId).then((allPlaylists) => {
-      let play = allPlaylists.items.map((playlist) => {
-        spotify.getPlaylistTracks(playlist.id).then((tracks) => {
-          tracks.items.map((track) => {
-            let trackTemp = {
-              name: track.name,
-            };
-            console.log(trackTemp);
-            let temp2 = {
-              name: playlist.name,
-              id: playlist.id,
-              tracks: trackTemp,
-            };
-            //console.log(temp2);
-          });
-        });
-      });
-    });
-  }, []);
-
   return (
-    <div className="dashboard_container">
-      <SearchBar props={props}></SearchBar>
-      <StatGauge props={tracks} />
-      <Box sx={{ width: "100%" }}>
-        <div class="top20Table">
-          <Stack spacing={2}>
-            {tracks.map((track) => (
-              <SongCard trackInfo={track}></SongCard>
-            ))}
-          </Stack>
+    <div className="loading">
+      {loading ? (
+        <div className="loadBar">
+          <BarLoader
+            height={5}
+            width={300}
+            color={"#FD9346"}
+            loading={loading}
+          />
+          <h3 className="text"> Analyzing Data</h3>
         </div>
-      </Box>
+      ) : (
+        <div className="dashboard_container">
+          <SearchBar props={props}></SearchBar>
+          <StatGauge props={tracks} />
+          <Box sx={{ width: "100%" }}>
+            <div class="top20Table">
+              <Stack spacing={2}>
+                {tracks.map((track) => (
+                  <SongCard trackInfo={track}></SongCard>
+                ))}
+              </Stack>
+            </div>
+          </Box>
+        </div>
+      )}
     </div>
   );
 }
