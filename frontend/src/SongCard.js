@@ -6,6 +6,7 @@ import {
   ThemeProvider,
 } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
+function setText(txt) {}
 
 let theme = createTheme();
 theme = responsiveFontSizes(theme);
@@ -19,38 +20,54 @@ function SongCard({ trackInfo }) {
         </div>
         <div class="songInfo">
           <div class="songName">
-            <Typography variant="h4">{trackInfo.name}</Typography>
+            <Typography sx={{ typography: { xs: "h3", sm: "h4" } }}>
+              {trackInfo.name}
+            </Typography>
           </div>
           <div class="songArtist">
-            <Typography variant="h5">{trackInfo.artists}</Typography>
+            <Typography sx={{ typography: { xs: "h4", sm: "h5" } }}>
+              {trackInfo.artists}
+            </Typography>
           </div>
         </div>
 
         <div class="songMetrics">
           <div class="metric">
             <div class="statName">
-              <Typography variant="h5">{"Energy: "}</Typography>
+              <Typography sx={{ typography: { xs: "h4", sm: "h5" } }}>
+                {"Energy: "}
+              </Typography>
             </div>
             <div class="stat">
-              <Typography variant="h5">{trackInfo.energy}</Typography>
+              <Typography sx={{ typography: { xs: "h4", sm: "h5" } }}>
+                {trackInfo.energy}
+              </Typography>
             </div>
           </div>
 
           <div class="metric">
             <div class="statName">
-              <Typography variant="h5">{"Danceability: "}</Typography>
+              <Typography sx={{ typography: { xs: "h4", sm: "h5" } }}>
+                {"Danceability: "}
+              </Typography>
             </div>
             <div class="stat">
-              <Typography variant="h5">{trackInfo.danceability}</Typography>
+              <Typography sx={{ typography: { xs: "h4", sm: "h5" } }}>
+                {trackInfo.danceability}
+              </Typography>
             </div>
           </div>
 
           <div class="metric">
             <div class="statName">
-              <Typography variant="h5">{"Happiness: "}</Typography>
+              <Typography sx={{ typography: { xs: "h4", sm: "h5" } }}>
+                {"Happiness: "}
+              </Typography>
             </div>
             <div class="stat">
-              <Typography variant="h5">{trackInfo.valence}</Typography>
+              <Typography sx={{ typography: { xs: "h4", sm: "h5" } }}>
+                {trackInfo.valence}
+              </Typography>
             </div>
           </div>
           {/* <div class="rank">1</div> */}

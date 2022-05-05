@@ -13,6 +13,9 @@
     flex-direction: column;
     align-items: stretch;
   }
+  .top20Img {
+    max-width: 35%;
+  }
 }
 /* > means must be a direct decendant of top20Row and * means everything */
 .top20Row > * {
@@ -33,7 +36,7 @@
     max-height: 150px !important;
   }
   .songInfo {
-    flex-grow: 2;
+    width: 50%;
   }
   .songMetrics {
     flex-grow: 2;
