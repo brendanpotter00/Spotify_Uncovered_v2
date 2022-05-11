@@ -9,14 +9,14 @@ secondary light = #587ca5 */
   position: absolute;
   top: 0;
   right: 0;
-  width: 100%;
+  width: 100vw;
 
-  background: -webkit-linear-gradient(
+  /* background: -webkit-linear-gradient(
     top,
     #303030f3 0%,
     #313131 40%,
     #c2681e4f 100%
-  ); /* Chrome10-25,Safari5.1-6 */
+  ); Chrome10-25,Safari5.1-6 */
   font-family: "Roboto", sans-serif;
   /* font-size: calc(10px + 2vmin); */
   color: white;

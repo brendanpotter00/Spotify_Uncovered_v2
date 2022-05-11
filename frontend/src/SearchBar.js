@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef, Component } from "react";
-import "./dashboard.css";
+import "./searchBar.css";
 import { styled, alpha } from "@mui/material/styles";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";

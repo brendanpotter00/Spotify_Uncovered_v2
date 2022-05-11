@@ -12,6 +12,22 @@
   margin-top: 2em;
 }
 
+@media screen and (min-width: 601px){
+  div.inner-phrase-container {
+    font-size:8vw;
+    padding: 1;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width:600px){
+  div.inner-phrase-container {
+    font-size: 6vw;
+    padding: 1;
+    text-align: center;
+  }
+}
+
 .phraseButton,
 .phraseButton::after {
   width: 4em;
@@ -46,7 +62,7 @@
   background: #da6027;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.4);
   transition: 500ms;
-  border-radius: 30%;
+  border-radius: 3rem;
 }
 
 .phraseButton:after {

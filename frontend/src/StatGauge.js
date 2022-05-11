@@ -1,19 +1,20 @@
 import React from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { buildStyles } from "react-circular-progressbar";
+import AnimatedProgressProvider from "./AnimatedProgressProvider";
 import "./statGauge.css";
 import "react-circular-progressbar/dist/styles.css";
 import Phrases from "./Phrases";
+import Typography from "@mui/material/Typography";
 
 const percentage = 66;
 function StatGauge({ props }) {
-
   function percentDifference(a, b) {
     return Math.abs(a - b) / ((a + b) / 2);
   }
 
-// weightedAvgs goes through the values for a certain stat and uses the percent difference between the number
-// and 50 to create weights that get multiplied by the value so that the stats are a bit more spread out and more accurate
+  // weightedAvgs goes through the values for a certain stat and uses the percent difference between the number
+  // and 50 to create weights that get multiplied by the value so that the stats are a bit more spread out and more accurate
   function weightedAvgs(metrics) {
     let weights = metrics.map((n) => percentDifference(50, n));
     const [sum, weightSum] = weights.reduce(
@@ -70,7 +71,14 @@ function StatGauge({ props }) {
               trailColor: "transparent",
             })}
           />
-          <h3> Energy </h3>
+          <Typography
+            sx={{
+              padding: 1,
+              typography: { xs: "Subtitle2", sm: "h5", md: "h4" },
+            }}
+          >
+            Energy
+          </Typography>
         </div>
         <div className="secondbar">
           <CircularProgressbar
@@ -90,8 +98,14 @@ function StatGauge({ props }) {
               trailColor: "transparent",
             })}
           />
-
-          <h3> Happiness </h3>
+          <Typography
+            sx={{
+              padding: 1,
+              typography: { xs: "Subtitle2", sm: "h5", md: "h4" },
+            }}
+          >
+            Happiness
+          </Typography>
         </div>
         <div className="thirdbar">
           <CircularProgressbar
@@ -111,7 +125,14 @@ function StatGauge({ props }) {
               trailColor: "transparent",
             })}
           />
-          <h3> Danceability </h3>
+          <Typography
+            sx={{
+              padding: 1,
+              typography: { xs: "Subtitle2", sm: "h5", md: "h4" },
+            }}
+          >
+            Danceability
+          </Typography>
         </div>
       </div>
       <Phrases props={phraseProps} />
