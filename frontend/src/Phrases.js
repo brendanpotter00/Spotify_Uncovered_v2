@@ -80,13 +80,12 @@ function Phrases({ props }) {
     setPhrase(true);
   };
 
-  //CodePen for Phrase button
-  //https://codepen.io/chancesq/pen/MWKREVg?editors=1100
+  //HTML Logic
+  // 1. if there is a phrase dont display the button; if not display the button
+  // 2. when the button is pressed it calls handleChange which calls determinePhrase
 
   return (
     <div className="phrase-container">
-      {/* <div className="phrase">{determinePhrase()}</div> */}
-
       {phrase ? (
         <div className="inner-phrase-container">
             {determinePhrase()}

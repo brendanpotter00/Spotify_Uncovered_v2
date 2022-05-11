@@ -52,10 +52,8 @@ function App() {
     window.location.hash = "";
     const _token = hash.access_token;
 
-
     if (_token) {
       setToken(_token);
-
       spotify.setAccessToken(_token);
       //grabbing the user
       spotify.getMe().then((user) => {

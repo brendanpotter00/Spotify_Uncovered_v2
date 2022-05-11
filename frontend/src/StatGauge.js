@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useEffect, useState, Component } from "react";
 import { CircularProgressbar } from "react-circular-progressbar";
 import { buildStyles } from "react-circular-progressbar";
-import AnimatedProgressProvider from "./AnimatedProgressProvider";
 import "./statGauge.css";
 import "react-circular-progressbar/dist/styles.css";
 import Phrases from "./Phrases";
@@ -9,6 +8,15 @@ import Typography from "@mui/material/Typography";
 
 const percentage = 66;
 function StatGauge({ props }) {
+  let testArr = [49, 59, 90, 100, 30, 20, 30];
+  function unitTest(arr) {
+    return weightedAvgs(arr);
+  }
+  useEffect(() => {
+    console.log(unitTest(testArr));
+    console.log("Correct value = 54");
+  }, []);
+
   function percentDifference(a, b) {
     return Math.abs(a - b) / ((a + b) / 2);
   }
