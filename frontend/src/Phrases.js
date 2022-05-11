@@ -88,10 +88,10 @@ function Phrases({ props }) {
       {/* <div className="phrase">{determinePhrase()}</div> */}
 
       {phrase ? (
-        <Typography sx={{ typography: { xs: "h3", sm: "h4" } }}>
-          {determinePhrase()}
-        </Typography>
-      ) : (
+        <div className="inner-phrase-container">
+            {determinePhrase()}
+        </div>
+      ) : ( //, typography: { xs: "h3", sm: "h4" } 
         // <div className="phrase"></div>
         // <button className="phraseButton" onClick={() => handleChange()}>
         //   click
